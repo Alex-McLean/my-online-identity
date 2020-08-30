@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const srcDir = '../src/';
-const distDir = '../dist';
+const distDir = '../dist/';
 const configFile = '../.eslintrc';
 
 module.exports = {
@@ -13,9 +13,11 @@ module.exports = {
     backgroundStorage: path.join(__dirname, srcDir + 'backgroundStorage.ts'),
     backgroundCookies: path.join(__dirname, srcDir + 'backgroundCookies.ts'),
     backgroundWebRequest: path.join(__dirname, srcDir + 'backgroundWebRequest.ts'),
+    backgroundTab: path.join(__dirname, srcDir + 'backgroundTab.ts'),
+    tab: path.join(__dirname, srcDir + 'tab.ts'),
   },
   output: {
-    path: path.join(__dirname, distDir, '/js'),
+    path: path.join(__dirname, distDir, 'js'),
     filename: '[name].js',
   },
   optimization: {
