@@ -19,6 +19,4 @@ chrome.runtime.onInstalled.addListener(function () {
   });
 });
 
-chrome.runtime.onStartup.addListener(() => {
-  chrome.storage.local.set({ 'webRequests.count': 0 });
-});
+chrome.storage.local.set({ 'webRequests.count': 0 });

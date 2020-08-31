@@ -28,11 +28,24 @@
       "js/backgroundStorage.js",
       "js/backgroundCookies.js",
       "js/backgroundWebRequest.js",
+      "js/backgroundContentSettings.js",
+      "js/backgroundManagement.js",
+      "js/backgroundPrivacy.js",
       "js/backgroundTab.js"
     ]
   },
   "incognito": "split",
   "offline_enabled": true,
   "options_page": "options.html",
-  "permissions": ["activeTab", "declarativeContent", "storage", "cookies", "webRequest", "<all_urls>"]
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage",
+    "cookies",
+    "webRequest",
+    "<all_urls>",
+    "contentSettings",
+    "management",
+    "privacy"
+  ]
 }
