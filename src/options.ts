@@ -1,15 +1,30 @@
-const page = document.getElementById('buttonDiv');
-const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1', '#fff'];
-function constructOptions(kButtonColors: string[]): void {
-  for (const item of kButtonColors) {
-    const button = document.createElement('button');
-    button.style.backgroundColor = item;
-    button.addEventListener('click', function () {
-      chrome.storage.sync.set({ color: item }, function () {
-        console.log(`color is ${item}`);
-      });
+function constructPrivacy(): void {
+  const privacyDiv = document.getElementById('privacyDiv');
+  const storageItems = [
+    'privacy.autofillCreditCardEnabled',
+    'privacy.thirdPartyCookiesAllowed',
+    'privacy.referrersEnabled',
+    'privacy.doNotTrackEnabled',
+  ];
+  chrome.storage.local.get(storageItems, (items) => {
+    Object.entries(items).forEach(([key, value]) => {
+      const p = document.createElement('p');
+      p.innerText = `${key}: ${value}`;
+      privacyDiv?.appendChild(p);
     });
-    page?.appendChild(button);
-  }
+  });
 }
-constructOptions(kButtonColors);
+constructPrivacy();
+
+function constructExtensions(): void {
+  const extensionsDiv = document.getElementById('extensionsDiv');
+  chrome.storage.local.get('management.extensions', (items) => {
+    const extensions = items['management.extensions'] as chrome.management.ExtensionInfo[];
+    extensions.forEach((extension) => {
+      const p = document.createElement('p');
+      p.innerText = `${extension.name}: ${extension.permissions.join(', ')}`;
+      extensionsDiv?.appendChild(p);
+    });
+  });
+}
+constructExtensions();
