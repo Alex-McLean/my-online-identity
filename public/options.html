@@ -2,20 +2,33 @@
 <html lang="en">
   <head>
     <title>My Online Identity - Options</title>
-    <style>
-      button {
-        height: 30px;
-        width: 30px;
-        outline: none;
-        margin: 10px;
-      }
-    </style>
+    <link rel="stylesheet" href="options.css" />
+    <link rel="stylesheet" href="build/vendor.css" />
+    <script src="build/vendor.js"></script>
   </head>
   <body>
     <h1>Privacy</h1>
-    <div id="privacyDiv"></div>
+    <div>
+      <p>
+        Credit Card Autofill: <span id="autofillCreditCardEnabled">-</span>
+        <button id="autofillCreditCardEnabledButton"></button>
+      </p>
+      <p>
+        Third Party Cookies: <span id="thirdPartyCookiesAllowed">-</span>
+        <button id="thirdPartyCookiesAllowedButton"></button>
+      </p>
+      <p>
+        Referrers: <span id="referrersEnabled">-</span>
+        <button id="referrersEnabledButton"></button>
+      </p>
+      <p>
+        Do Not Track: <span id="doNotTrackEnabled">-</span>
+        <button id="doNotTrackEnabledButton"></button>
+      </p>
+    </div>
+
     <h1>Extensions</h1>
     <div id="extensionsDiv"></div>
   </body>
-  <script src="js/options.js"></script>
+  <script src="build/options.js"></script>
 </html>

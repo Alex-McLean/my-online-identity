@@ -24,14 +24,12 @@
   "background": {
     "persistent": true,
     "scripts": [
-      "js/background.js",
-      "js/backgroundStorage.js",
-      "js/backgroundCookies.js",
-      "js/backgroundWebRequest.js",
-      "js/backgroundContentSettings.js",
-      "js/backgroundManagement.js",
-      "js/backgroundPrivacy.js",
-      "js/backgroundTab.js"
+      "build/background.js",
+      "build/backgroundStorage.js",
+      "build/backgroundCookies.js",
+      "build/backgroundWebRequest.js",
+      "build/backgroundContentSettings.js",
+      "build/backgroundTab.js"
     ]
   },
   "incognito": "split",
@@ -50,5 +48,11 @@
     "contentSettings",
     "management",
     "privacy"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["build/vendor.js"]
+    }
   ]
 }

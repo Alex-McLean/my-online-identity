@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const srcDir = '../src/';
 const distDir = '../dist/';
 const configFile = '../.eslintrc';
@@ -14,13 +15,11 @@ module.exports = {
     backgroundCookies: path.join(__dirname, srcDir + 'backgroundCookies.ts'),
     backgroundWebRequest: path.join(__dirname, srcDir + 'backgroundWebRequest.ts'),
     backgroundContentSettings: path.join(__dirname, srcDir + 'backgroundContentSettings.ts'),
-    backgroundManagement: path.join(__dirname, srcDir + 'backgroundManagement.ts'),
-    backgroundPrivacy: path.join(__dirname, srcDir + 'backgroundPrivacy.ts'),
     backgroundTab: path.join(__dirname, srcDir + 'backgroundTab.ts'),
     tab: path.join(__dirname, srcDir + 'tab.ts'),
   },
   output: {
-    path: path.join(__dirname, distDir, 'js'),
+    path: path.join(__dirname, distDir, 'build'),
     filename: '[name].js',
   },
   optimization: {
@@ -48,6 +47,10 @@ module.exports = {
         include: /src/,
       },
       {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
@@ -61,5 +64,6 @@ module.exports = {
     // exclude locale files in moment
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new CopyPlugin([{ from: '.', to: '../' }], { context: 'public' }),
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
   ],
 };

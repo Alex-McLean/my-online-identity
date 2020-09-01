@@ -1,3 +1,3 @@
 chrome.tabs.onUpdated.addListener((tabId) => {
-  chrome.tabs.executeScript(tabId, { file: 'js/tab.js', allFrames: true });
+  chrome.tabs.executeScript(tabId, { file: 'build/tab.js', allFrames: true });
 });
