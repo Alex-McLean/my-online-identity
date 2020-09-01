@@ -8,6 +8,10 @@
   text-align: center;
 }
 
+.tippy-box[data-theme~='moi'][data-placement^='top'] > .tippy-arrow:before {
+  left: -150px;
+}
+
 .extension-name {
   font-weight: bold;
 }

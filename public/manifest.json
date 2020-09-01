@@ -23,14 +23,7 @@
 
   "background": {
     "persistent": true,
-    "scripts": [
-      "build/background.js",
-      "build/backgroundStorage.js",
-      "build/backgroundCookies.js",
-      "build/backgroundWebRequest.js",
-      "build/backgroundContentSettings.js",
-      "build/backgroundTab.js"
-    ]
+    "scripts": ["build/vendor.js", "build/background.js", "build/backgroundWebRequest.js"]
   },
   "incognito": "split",
   "offline_enabled": true,

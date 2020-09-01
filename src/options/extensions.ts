@@ -1,24 +1,21 @@
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
 
-const createPermissionSpan = (
-  extension: chrome.management.ExtensionInfo,
-  permission: string,
-  index: number
-): HTMLSpanElement => {
-  const lastPermission = extension.permissions.length === index + 1;
-  const permissionSpan = document.createElement('span');
-  permissionSpan.innerText = `${permission}${lastPermission ? '' : ', '}`;
-  permissionSpan.id = `${extension.id}${index}`;
+const createPermissionListItem = (extension: chrome.management.ExtensionInfo, permission: string): HTMLLIElement => {
+  const permissionListItem = document.createElement('li');
+  permissionListItem.innerText = permission;
+  permissionListItem.id = `${extension.id}${permission}`;
 
-  tippy(permissionSpan, {
+  tippy(permissionListItem, {
     content: `This is some interesting information about this permission: ${permission}`,
-    arrow: true,
     duration: 100,
     maxWidth: 200,
+    placement: 'top-start',
+    arrow: true,
+    theme: 'moi',
   });
 
-  return permissionSpan;
+  return permissionListItem;
 };
 
 const createExtensionParagraph = (extension: chrome.management.ExtensionInfo): HTMLParagraphElement => {
@@ -26,15 +23,20 @@ const createExtensionParagraph = (extension: chrome.management.ExtensionInfo): H
   extensionParagraph.id = extension.id;
 
   const extensionNameSpan = document.createElement('span');
-  extensionNameSpan.innerText = `${extension.name}: `;
+  extensionNameSpan.innerText = `${extension.name}`;
   extensionNameSpan.className = 'extension-name';
   extensionParagraph.appendChild(extensionNameSpan);
 
-  extension.permissions.forEach((permission, index) => {
-    const permissionSpan = createPermissionSpan(extension, permission, index);
-    extensionParagraph.appendChild(permissionSpan);
+  if (!extension.permissions.length) return extensionParagraph;
+
+  const permissionsList = document.createElement('ul');
+
+  extension.permissions.forEach((permission) => {
+    const permissionListItem = createPermissionListItem(extension, permission);
+    permissionsList.appendChild(permissionListItem);
   });
 
+  extensionParagraph.appendChild(permissionsList);
   return extensionParagraph;
 };
 
