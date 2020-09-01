@@ -1,3 +1,13 @@
+/* PRIVACY */
+.privacy-button {
+  margin-left: 10px;
+}
+
+/* EXTENSIONS */
 .tippy-content {
   text-align: center;
+}
+
+.extension-name {
+  font-weight: bold;
 }
