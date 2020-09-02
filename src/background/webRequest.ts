@@ -64,17 +64,6 @@ const countInitiatorRequest = (initiatorUrl: URL, destinationUrl: URL): void => 
         },
       },
     });
-    console.log({
-      [WEB_REQUEST_INITIATORS_KEY]: {
-        ...currentInitiators,
-        [initiatorUrl.hostname]: {
-          ...currentInitiator,
-          [destinationUrl.hostname]: {
-            requestCount: currentInitiatorDestination.requestCount + 1,
-          },
-        },
-      },
-    });
   });
 };
 
