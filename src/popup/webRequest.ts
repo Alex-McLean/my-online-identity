@@ -45,7 +45,7 @@ const createWebRequestHeader = (url: string): void => {
   if (!webRequestDiv) return;
 
   const webRequestHeader = document.createElement('h3');
-  webRequestHeader.innerText = `Outbound requests for ${url}`;
+  webRequestHeader.innerText = `Outbound requests from ${url}`;
   webRequestDiv.appendChild(webRequestHeader);
 };
 
