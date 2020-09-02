@@ -10,26 +10,26 @@ interface PrivacyParagraphArgs {
     falseText: string;
   };
 }
-const createPrivacyParagraph = (props: PrivacyParagraphArgs): void => {
-  props.setting.get({}, (details) => {
+const createPrivacyParagraph = (args: PrivacyParagraphArgs): void => {
+  args.setting.get({}, (details) => {
     const privacyDiv = document.getElementById('privacyDiv');
     if (!privacyDiv) return;
 
     const privacyParagraph = document.createElement('p');
 
     const privacySpan = document.createElement('span');
-    privacySpan.innerText = `${props.span.label}: `;
-    privacySpan.innerText += details.value ? props.span.trueText : props.span.falseText;
+    privacySpan.innerText = `${args.span.label}: `;
+    privacySpan.innerText += details.value ? args.span.trueText : args.span.falseText;
     privacyParagraph.appendChild(privacySpan);
 
     const privacyButton = document.createElement('button');
     privacyButton.className = 'privacy-button';
-    privacyButton.innerText = details.value ? props.button.trueText : props.button.falseText;
+    privacyButton.innerText = details.value ? args.button.trueText : args.button.falseText;
     privacyButton.onclick = (): void => {
-      const newValue = privacyButton.innerText === props.button.trueText;
-      props.setting.set({ value: newValue }, () => {
-        privacySpan.innerText = newValue ? props.span.trueText : props.span.falseText;
-        privacyButton.innerText = newValue ? props.button.trueText : props.button.falseText;
+      const newValue = privacyButton.innerText === args.button.trueText;
+      args.setting.set({ value: newValue }, () => {
+        privacySpan.innerText = newValue ? args.span.trueText : args.span.falseText;
+        privacyButton.innerText = newValue ? args.button.trueText : args.button.falseText;
       });
     };
     privacyParagraph.appendChild(privacyButton);

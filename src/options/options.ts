@@ -1,7 +1,7 @@
 import { constructExtensions } from './extensions';
 import { constructPrivacy } from './privacy';
-import { constructWebRequests } from './webRequest';
+import { constructWebRequest } from './webRequest';
 
 constructPrivacy();
 constructExtensions();
-constructWebRequests();
+constructWebRequest();

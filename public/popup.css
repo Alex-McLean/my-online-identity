@@ -1,0 +1,16 @@
+body {
+  width: 400px;
+}
+
+.content-setting {
+  text-transform: capitalize;
+}
+.content-setting.allow {
+  color: green;
+}
+.content-setting.block {
+  color: red;
+}
+.content-setting.ask {
+  color: orange;
+}
