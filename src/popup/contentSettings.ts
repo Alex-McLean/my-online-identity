@@ -8,11 +8,8 @@ interface ContentSettingParagraphArgs {
   url: string;
 }
 
-const createContentSettingParagraph = (args: ContentSettingParagraphArgs): void => {
+const createContentSettingParagraph = (parentDiv: HTMLElement, args: ContentSettingParagraphArgs): void => {
   args.contentSetting.get({ primaryUrl: args.url }, (details) => {
-    const contentSettingsDiv = document.getElementById('contentSettingsDiv');
-    if (!contentSettingsDiv) return;
-
     const contentSettingParagraph = document.createElement('p');
 
     const contentSettingLabelSpan = document.createElement('span');
@@ -24,17 +21,14 @@ const createContentSettingParagraph = (args: ContentSettingParagraphArgs): void 
     contentSettingSpan.className = `content-setting ${details.setting}`;
     contentSettingParagraph.appendChild(contentSettingSpan);
 
-    contentSettingsDiv.appendChild(contentSettingParagraph);
+    parentDiv.appendChild(contentSettingParagraph);
   });
 };
 
-const createContentSettingHeader = (url: string): void => {
-  const contentSettingsDiv = document.getElementById('contentSettingsDiv');
-  if (!contentSettingsDiv) return;
-
-  const contentSettingHeader = document.createElement('h3');
+const updateContentSettingHeader = (url: string): void => {
+  const contentSettingHeader = document.getElementById('contentSettingsHeader');
+  if (!contentSettingHeader) return;
   contentSettingHeader.innerText = `Content settings for ${url}`;
-  contentSettingsDiv.appendChild(contentSettingHeader);
 };
 
 export const constructContentSettings = (): void => {
@@ -44,63 +38,66 @@ export const constructContentSettings = (): void => {
 
     const url = new URL(activeTab.url);
 
-    createContentSettingHeader(url.hostname);
+    updateContentSettingHeader(url.hostname);
 
-    createContentSettingParagraph({
+    const contentSettingContentDiv = document.getElementById('contentSettingsContent');
+    if (!contentSettingContentDiv) return;
+
+    createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.cookies,
       label: 'Cookies',
       url: url.toString(),
     });
 
-    createContentSettingParagraph({
+    createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.images,
       label: 'Images',
       url: url.toString(),
     });
 
-    createContentSettingParagraph({
+    createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.javascript,
       label: 'JavaScript',
       url: url.toString(),
     });
 
-    createContentSettingParagraph({
+    createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.location,
       label: 'Location',
       url: url.toString(),
     });
 
-    createContentSettingParagraph({
+    createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.plugins,
       label: 'Plugins',
       url: url.toString(),
     });
 
-    createContentSettingParagraph({
+    createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.popups,
       label: 'Popups',
       url: url.toString(),
     });
 
-    createContentSettingParagraph({
+    createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.notifications,
       label: 'Notifications',
       url: url.toString(),
     });
 
-    createContentSettingParagraph({
+    createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.microphone,
       label: 'Microphone',
       url: url.toString(),
     });
 
-    createContentSettingParagraph({
+    createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.unsandboxedPlugins,
       label: 'Unsandboxed Plugins',
       url: url.toString(),
     });
 
-    createContentSettingParagraph({
+    createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.automaticDownloads,
       label: 'Automatic Downloads',
       url: url.toString(),

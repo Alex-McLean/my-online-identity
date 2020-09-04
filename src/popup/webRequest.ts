@@ -24,8 +24,8 @@ const createDestinationParagraph = ([destinationName, destination]: [
 };
 
 const createDestinationParagraphs = (initiator: string): void => {
-  const webRequestDiv = document.getElementById('webRequestDiv');
-  if (!webRequestDiv) return;
+  const webRequestContentDiv = document.getElementById('webRequestContent');
+  if (!webRequestContentDiv) return;
 
   chrome.storage.local.get(WEB_REQUEST_INITIATORS_KEY, (items) => {
     const currentInitiators: WebRequestInitiators = items[WEB_REQUEST_INITIATORS_KEY] ?? {};
@@ -35,18 +35,15 @@ const createDestinationParagraphs = (initiator: string): void => {
       .sort(sortDestinations)
       .forEach((initiator) => {
         const destinationParagraph = createDestinationParagraph(initiator);
-        webRequestDiv.appendChild(destinationParagraph);
+        webRequestContentDiv.appendChild(destinationParagraph);
       });
   });
 };
 
-const createWebRequestHeader = (url: string): void => {
-  const webRequestDiv = document.getElementById('webRequestDiv');
-  if (!webRequestDiv) return;
-
-  const webRequestHeader = document.createElement('h3');
+const updateWebRequestHeader = (url: string): void => {
+  const webRequestHeader = document.getElementById('webRequestHeader');
+  if (!webRequestHeader) return;
   webRequestHeader.innerText = `Outbound requests from ${url}`;
-  webRequestDiv.appendChild(webRequestHeader);
 };
 
 export const constructWebRequest = (): void => {
@@ -56,7 +53,7 @@ export const constructWebRequest = (): void => {
 
     const url = new URL(activeTab.url);
 
-    createWebRequestHeader(url.hostname);
+    updateWebRequestHeader(url.hostname);
     createDestinationParagraphs(url.hostname);
   });
 };

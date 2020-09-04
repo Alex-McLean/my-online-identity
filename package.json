@@ -8,6 +8,7 @@
     "lint": "eslint --config .eslintrc --cache --color --ext .js,.jsx,.ts,.tsx ./src"
   },
   "dependencies": {
+    "accordion-js": "^2.8.0",
     "tippy.js": "^6.2.6"
   },
   "devDependencies": {

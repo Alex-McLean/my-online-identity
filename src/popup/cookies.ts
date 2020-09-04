@@ -1,10 +1,10 @@
 const createCookieParagraph = (label: string, value: number): void => {
-  const cookiesDiv = document.getElementById('cookiesDiv');
-  if (!cookiesDiv) return;
+  const cookiesContentDiv = document.getElementById('cookiesContent');
+  if (!cookiesContentDiv) return;
 
   const cookiesParagraph = document.createElement('p');
   cookiesParagraph.innerText = `${label}: ${value}`;
-  cookiesDiv.appendChild(cookiesParagraph);
+  cookiesContentDiv.appendChild(cookiesParagraph);
 };
 
 const createCookieParagraphs = (url: URL): void => {
@@ -23,13 +23,10 @@ const createCookieParagraphs = (url: URL): void => {
   });
 };
 
-const createCookiesHeader = (url: string): void => {
-  const cookiesDiv = document.getElementById('cookiesDiv');
-  if (!cookiesDiv) return;
-
-  const cookiesHeader = document.createElement('h3');
+const updateCookiesHeader = (url: string): void => {
+  const cookiesHeader = document.getElementById('cookiesHeader');
+  if (!cookiesHeader) return;
   cookiesHeader.innerText = `Cookies stored by ${url}`;
-  cookiesDiv.appendChild(cookiesHeader);
 };
 
 export const constructCookies = (): void => {
@@ -39,7 +36,7 @@ export const constructCookies = (): void => {
 
     const url = new URL(activeTab.url);
 
-    createCookiesHeader(url.hostname);
+    updateCookiesHeader(url.hostname);
 
     createCookieParagraphs(url);
   });

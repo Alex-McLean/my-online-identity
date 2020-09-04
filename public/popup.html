@@ -3,17 +3,30 @@
   <head>
     <title>My Online Identity - Popup</title>
     <link rel="stylesheet" href="popup.css" />
+    <link rel="stylesheet" href="build/vendor.css" />
+    <script src="build/vendor.js"></script>
   </head>
   <body>
     <div>
       <h1>My Online Identity</h1>
     </div>
 
-    <div id="contentSettingsDiv"></div>
+    <div id="contentDiv" class="accordion-container">
+      <div id="contentSettingsDiv" class="ac">
+        <h3 id="contentSettingsHeader" class="ac-q" tabindex="0"></h3>
+        <div id="contentSettingsContent" class="ac-a"></div>
+      </div>
 
-    <div id="webRequestDiv"></div>
+      <div id="webRequestDiv" class="ac">
+        <h3 id="webRequestHeader" class="ac-q" tabindex="0"></h3>
+        <div id="webRequestContent" class="ac-a"></div>
+      </div>
 
-    <div id="cookiesDiv"></div>
+      <div id="cookiesDiv" class="ac">
+        <h3 id="cookiesHeader" class="ac-q" tabindex="0"></h3>
+        <div id="cookiesContent" class="ac-a"></div>
+      </div>
+    </div>
 
     <script src="build/popup.js"></script>
   </body>
