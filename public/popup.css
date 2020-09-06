@@ -14,6 +14,13 @@ body {
 .content-setting.ask {
   color: orange;
 }
+.content-setting-select {
+  margin-left: 10px;
+}
+.content-setting-select,
+.content-setting-option {
+  text-transform: capitalize;
+}
 
 .aggregate-content {
   text-align: center;

@@ -5,11 +5,12 @@ const getDisplaySetting = (setting: string): string => {
 interface ContentSettingParagraphArgs {
   contentSetting: chrome.contentSettings.ContentSetting;
   label: string;
-  url: string;
+  url: URL;
+  options: string[];
 }
 
 const createContentSettingParagraph = (parentDiv: HTMLElement, args: ContentSettingParagraphArgs): void => {
-  args.contentSetting.get({ primaryUrl: args.url }, (details) => {
+  args.contentSetting.get({ primaryUrl: args.url.toString() }, (details) => {
     const contentSettingParagraph = document.createElement('p');
 
     const contentSettingLabelSpan = document.createElement('span');
@@ -20,6 +21,27 @@ const createContentSettingParagraph = (parentDiv: HTMLElement, args: ContentSett
     contentSettingSpan.innerText = getDisplaySetting(details.setting);
     contentSettingSpan.className = `content-setting ${details.setting}`;
     contentSettingParagraph.appendChild(contentSettingSpan);
+
+    const contentSettingSelect = document.createElement('select');
+    contentSettingSelect.onchange = (e: Event): void => {
+      const target = e.currentTarget;
+      if (!target) return;
+      const setting = (target as HTMLSelectElement).value;
+      args.contentSetting.set({ primaryPattern: `${args.url.origin}/*`, setting }, (): void => {
+        contentSettingSpan.innerText = getDisplaySetting(setting);
+        contentSettingSpan.className = `content-setting ${setting}`;
+      });
+    };
+    args.options.forEach((option) => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option;
+      optionElement.innerText = getDisplaySetting(option);
+      optionElement.className = 'content-setting-option';
+      contentSettingSelect.appendChild(optionElement);
+    });
+    contentSettingSelect.value = details.setting;
+    contentSettingSelect.className = 'content-setting-select';
+    contentSettingParagraph.appendChild(contentSettingSelect);
 
     parentDiv.appendChild(contentSettingParagraph);
   });
@@ -46,61 +68,71 @@ export const constructContentSettings = (): void => {
     createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.cookies,
       label: 'Cookies',
-      url: url.toString(),
+      url: url,
+      options: ['allow', 'block', 'session_only'],
     });
 
     createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.images,
       label: 'Images',
-      url: url.toString(),
+      url: url,
+      options: ['allow', 'block'],
     });
 
     createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.javascript,
       label: 'JavaScript',
-      url: url.toString(),
+      url: url,
+      options: ['allow', 'block'],
     });
 
     createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.location,
       label: 'Location',
-      url: url.toString(),
+      url: url,
+      options: ['allow', 'block', 'ask'],
     });
 
     createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.plugins,
       label: 'Plugins',
-      url: url.toString(),
+      url: url,
+      options: ['allow', 'block', 'detect_important_content'],
     });
 
     createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.popups,
       label: 'Popups',
-      url: url.toString(),
+      url: url,
+      options: ['allow', 'block'],
     });
 
     createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.notifications,
       label: 'Notifications',
-      url: url.toString(),
+      url: url,
+      options: ['allow', 'block', 'ask'],
     });
 
     createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.microphone,
       label: 'Microphone',
-      url: url.toString(),
+      url: url,
+      options: ['allow', 'block', 'ask'],
     });
 
     createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.unsandboxedPlugins,
       label: 'Unsandboxed Plugins',
-      url: url.toString(),
+      url: url,
+      options: ['allow', 'block', 'ask'],
     });
 
     createContentSettingParagraph(contentSettingContentDiv, {
       contentSetting: chrome.contentSettings.automaticDownloads,
       label: 'Automatic Downloads',
-      url: url.toString(),
+      url: url,
+      options: ['allow', 'block', 'ask'],
     });
   });
 };
