@@ -7,11 +7,17 @@ interface ContentSettingParagraphArgs {
   label: string;
   url: URL;
   options: string[];
+  hide?: boolean;
 }
 
-const createContentSettingParagraph = (parentDiv: HTMLElement, args: ContentSettingParagraphArgs): void => {
+const createContentSettingParagraph = (
+  parentDiv: HTMLElement,
+  beforeDiv: HTMLElement,
+  args: ContentSettingParagraphArgs
+): void => {
   args.contentSetting.get({ primaryUrl: args.url.toString() }, (details) => {
     const contentSettingParagraph = document.createElement('p');
+    contentSettingParagraph.className = args.hide ? 'content-setting-hidden' : '';
 
     const contentSettingLabelSpan = document.createElement('span');
     contentSettingLabelSpan.innerText = `${args.label}: `;
@@ -43,14 +49,42 @@ const createContentSettingParagraph = (parentDiv: HTMLElement, args: ContentSett
     contentSettingSelect.className = 'content-setting-select';
     contentSettingParagraph.appendChild(contentSettingSelect);
 
-    parentDiv.appendChild(contentSettingParagraph);
+    parentDiv.insertBefore(contentSettingParagraph, beforeDiv);
   });
+};
+
+const createContentSettingExpand = (parentDiv: HTMLElement): HTMLParagraphElement => {
+  const viewMoreText = 'View more privacy settings';
+  const viewLessText = 'View less privacy settings';
+
+  const contentSettingExpandParagraph = document.createElement('p');
+  contentSettingExpandParagraph.innerText = viewMoreText;
+  contentSettingExpandParagraph.className = 'content-settings-expand';
+
+  contentSettingExpandParagraph.onclick = (): void => {
+    for (let i = 0; i < parentDiv.children.length; i++) {
+      if (parentDiv.children[i].className === 'content-setting-shown') {
+        parentDiv.children[i].className = 'content-setting-hidden';
+        continue;
+      }
+
+      if (parentDiv.children[i].className === 'content-setting-hidden') {
+        parentDiv.children[i].className = 'content-setting-shown';
+      }
+    }
+
+    contentSettingExpandParagraph.innerText =
+      contentSettingExpandParagraph.innerText === viewMoreText ? viewLessText : viewMoreText;
+  };
+
+  return contentSettingExpandParagraph;
 };
 
 const updateContentSettingHeader = (url: string): void => {
   const contentSettingHeader = document.getElementById('contentSettingsHeader');
   if (!contentSettingHeader) return;
   contentSettingHeader.innerText = `Content settings for ${url}`;
+  contentSettingHeader.className = 'content-setting-content';
 };
 
 export const constructContentSettings = (): void => {
@@ -64,75 +98,86 @@ export const constructContentSettings = (): void => {
 
     const contentSettingContentDiv = document.getElementById('contentSettingsContent');
     if (!contentSettingContentDiv) return;
+    contentSettingContentDiv.className = 'content-setting-content';
 
-    createContentSettingParagraph(contentSettingContentDiv, {
+    const contentSettingExpand = createContentSettingExpand(contentSettingContentDiv);
+    contentSettingContentDiv.appendChild(contentSettingExpand);
+
+    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
       contentSetting: chrome.contentSettings.cookies,
       label: 'Cookies',
       url: url,
       options: ['allow', 'block', 'session_only'],
     });
 
-    createContentSettingParagraph(contentSettingContentDiv, {
+    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
       contentSetting: chrome.contentSettings.images,
       label: 'Images',
       url: url,
       options: ['allow', 'block'],
+      hide: true,
     });
 
-    createContentSettingParagraph(contentSettingContentDiv, {
+    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
       contentSetting: chrome.contentSettings.javascript,
       label: 'JavaScript',
       url: url,
       options: ['allow', 'block'],
+      hide: true,
     });
 
-    createContentSettingParagraph(contentSettingContentDiv, {
+    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
       contentSetting: chrome.contentSettings.location,
       label: 'Location',
       url: url,
       options: ['allow', 'block', 'ask'],
     });
 
-    createContentSettingParagraph(contentSettingContentDiv, {
+    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
       contentSetting: chrome.contentSettings.plugins,
       label: 'Plugins',
       url: url,
       options: ['allow', 'block', 'detect_important_content'],
+      hide: true,
     });
 
-    createContentSettingParagraph(contentSettingContentDiv, {
+    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
       contentSetting: chrome.contentSettings.popups,
       label: 'Popups',
       url: url,
       options: ['allow', 'block'],
+      hide: true,
     });
 
-    createContentSettingParagraph(contentSettingContentDiv, {
+    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
       contentSetting: chrome.contentSettings.notifications,
       label: 'Notifications',
       url: url,
       options: ['allow', 'block', 'ask'],
+      hide: true,
     });
 
-    createContentSettingParagraph(contentSettingContentDiv, {
+    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
       contentSetting: chrome.contentSettings.microphone,
       label: 'Microphone',
       url: url,
       options: ['allow', 'block', 'ask'],
     });
 
-    createContentSettingParagraph(contentSettingContentDiv, {
+    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
       contentSetting: chrome.contentSettings.unsandboxedPlugins,
       label: 'Unsandboxed Plugins',
       url: url,
       options: ['allow', 'block', 'ask'],
+      hide: true,
     });
 
-    createContentSettingParagraph(contentSettingContentDiv, {
+    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
       contentSetting: chrome.contentSettings.automaticDownloads,
       label: 'Automatic Downloads',
       url: url,
       options: ['allow', 'block', 'ask'],
+      hide: true,
     });
   });
 };

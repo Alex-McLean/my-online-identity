@@ -14,12 +14,23 @@ body {
 .content-setting.ask {
   color: orange;
 }
+.content-setting-content {
+  text-align: center;
+}
+.content-settings-expand {
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}
 .content-setting-select {
   margin-left: 10px;
 }
 .content-setting-select,
 .content-setting-option {
   text-transform: capitalize;
+}
+.content-setting-hidden {
+  display: none;
 }
 
 .aggregate-content {
