@@ -47,8 +47,8 @@ export const constructPrivacy = (): void => {
       falseText: 'Disabled',
     },
     button: {
-      trueText: 'Enable',
-      falseText: 'Disable',
+      trueText: 'Disable',
+      falseText: 'Enable',
     },
   });
 
@@ -60,8 +60,8 @@ export const constructPrivacy = (): void => {
       falseText: 'Blocked',
     },
     button: {
-      trueText: 'Allow',
-      falseText: 'Block',
+      trueText: 'Block',
+      falseText: 'Allow',
     },
   });
 
@@ -73,8 +73,8 @@ export const constructPrivacy = (): void => {
       falseText: 'Disabled',
     },
     button: {
-      trueText: 'Enable',
-      falseText: 'Disable',
+      trueText: 'Disable',
+      falseText: 'Enable',
     },
   });
 
@@ -86,8 +86,8 @@ export const constructPrivacy = (): void => {
       falseText: 'Disabled',
     },
     button: {
-      trueText: 'Enable',
-      falseText: 'Disable',
+      trueText: 'Disable',
+      falseText: 'Enable',
     },
   });
 };

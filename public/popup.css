@@ -14,3 +14,7 @@ body {
 .content-setting.ask {
   color: orange;
 }
+
+.aggregate-content {
+  text-align: center;
+}
