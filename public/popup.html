@@ -7,18 +7,19 @@
     <script src="build/vendor.js"></script>
   </head>
   <body>
-    <div>
-      <h1>My Online Identity</h1>
-    </div>
+    <div id="content-1">
+      <div id="headerContainer" class="red">
+        <h1>This site may be breaking your trust</h1>
+      </div>
 
-    <div id="aggregateDiv"></div>
+      <div id="aggregateDiv" class="section-container"></div>
 
-    <div id="contentSettingsDiv">
-      <h3 id="contentSettingsHeader"></h3>
-      <div id="contentSettingsContent"></div>
-    </div>
+      <div id="contentSettingsDiv" class="section-container">
+        <h3 id="contentSettingsHeader" class="section-heading"></h3>
+        <div id="contentSettingsContent"></div>
+      </div>
 
-    <div id="contentDiv" class="accordion-container">
+      <!-- <div id="contentDiv" class="accordion-container">
       <div id="webRequestDiv" class="ac">
         <h3 id="webRequestHeader" class="ac-q" tabindex="0"></h3>
         <div id="webRequestContent" class="ac-a"></div>
@@ -27,6 +28,35 @@
       <div id="cookiesDiv" class="ac">
         <h3 id="cookiesHeader" class="ac-q" tabindex="0"></h3>
         <div id="cookiesContent" class="ac-a"></div>
+      </div>
+    </div> -->
+
+      <div id="personalInsightSection" class="section-container">
+        <div id="personalInsightContent">
+          <div id="pisCallToAction" class="call-to-action">
+            <div>
+              <h3 id="personalInsightHeader" class="section-heading no-margin">
+                See exactly what your browser knows about you
+              </h3>
+            </div>
+            <img src="assets/arrow_forward-black-18dp.svg" height="32px" width="32px" />
+          </div>
+        </div>
+        Powered by Moi
+      </div>
+    </div>
+
+    <div id="content-2" class="hidden">
+      <div id="headerContainer" class="grey">
+        <h1>Here's what your browser knows about you</h1>
+      </div>
+
+      <div id="pisContainer">
+        <div id="pisContent">Hello, World!</div>
+
+        <div id="pisFooterCallToAction" class="footerCallToAction">
+          <span class="section-heading">Done</span>
+        </div>
       </div>
     </div>
 

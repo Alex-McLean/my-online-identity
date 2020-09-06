@@ -1,5 +1,7 @@
 import { WEB_REQUEST_INITIATORS_KEY, WebRequestInitiators } from '../background/webRequest';
 
+const SAD_INFO_LINE_CLASS = 'sad-info-paragraph';
+
 export const createWebRequestsParagraph = (parent: HTMLElement, initiator: string): void => {
   chrome.storage.local.get(WEB_REQUEST_INITIATORS_KEY, (items) => {
     const currentInitiators: WebRequestInitiators = items[WEB_REQUEST_INITIATORS_KEY] ?? {};
@@ -10,12 +12,14 @@ export const createWebRequestsParagraph = (parent: HTMLElement, initiator: strin
     }, 0);
 
     const webRequestsParagraph = document.createElement('p');
-    webRequestsParagraph.innerText = `You made ${total} network requests.`;
+    webRequestsParagraph.className = SAD_INFO_LINE_CLASS;
+    webRequestsParagraph.innerText = `Made ${total} network requests.`;
     parent.appendChild(webRequestsParagraph);
 
     const totalDomains = Math.max(Object.values(currentInitiator).length - 1, 0); // Exclude self
     const externalDomainsParagraph = document.createElement('p');
-    externalDomainsParagraph.innerText = `You interacted with ${totalDomains} external domains.`;
+    externalDomainsParagraph.className = SAD_INFO_LINE_CLASS;
+    externalDomainsParagraph.innerText = `Interacted with ${totalDomains} external domains.`;
     parent.appendChild(externalDomainsParagraph);
   });
 };
@@ -24,7 +28,8 @@ export const createCookiesParagraph = (parent: HTMLElement, url: URL): void => {
   chrome.cookies.getAll({ url: url.toString() }, (cookies) => {
     const totalCookies = cookies.length;
     const cookiesParagraph = document.createElement('p');
-    cookiesParagraph.innerText = `You stored ${totalCookies} cookies on your device.`;
+    cookiesParagraph.className = SAD_INFO_LINE_CLASS;
+    cookiesParagraph.innerText = `Stored ${totalCookies} cookies on your device.`;
     parent.appendChild(cookiesParagraph);
   });
 };
@@ -34,7 +39,8 @@ export const createAggregateContentDiv = (url: URL): HTMLDivElement => {
   aggregateContentDiv.className = 'aggregate-content';
 
   const aggregateHeader = document.createElement('h3');
-  aggregateHeader.innerText = `${url.hostname} has performed the following actions on your behalf:`;
+  aggregateHeader.className = 'section-heading';
+  aggregateHeader.innerText = `${url.hostname} has allowed the following network and cookie activity`;
   aggregateContentDiv.appendChild(aggregateHeader);
 
   createWebRequestsParagraph(aggregateContentDiv, url.hostname);

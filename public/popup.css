@@ -1,6 +1,61 @@
 body {
   width: 400px;
+  padding: 0;
+  margin: 0;
+  fontfamily: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+h1 {
+  font-weight: normal;
+  font-size: 12pt;
+}
+
+/* Sections */
+
+#headerContainer {
+  text-align: center;
+  padding: 8px;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.red {
+  background-color: #f5474f;
+  color: #ffffff;
+}
+
+.grey {
+  background-color: #e9e9e9;
+  color: #282828;
+}
+
+#aggregateDiv {
+}
+
+.section-container {
+  padding: 16px 32px;
+  border-bottom: 1px solid #e9e9e9;
+  text-align: center;
+}
+
+.section-heading {
+  font-size: 13pt;
+  padding: 0 22px;
+  margin: 4px 0 24px 0;
+  font-weight: normal;
+  text-align: center;
+}
+
+/* SAD */
+
+.sad-info-paragraph {
+  margin: 4px 0;
+  padding: 0;
+}
+
+/* PCP */
 
 .content-setting {
   text-transform: capitalize;
@@ -35,4 +90,51 @@ body {
 
 .aggregate-content {
   text-align: center;
+}
+
+/* PIS */
+
+.call-to-action {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  margin-top: 4px;
+  margin-bottom: 32px;
+  cursor: pointer;
+}
+
+.call-to-action:hover {
+  color: #383838;
+  text-decoration: underline;
+}
+
+#pisContainer {
+  height: 500px;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#pisContent {
+  height: 100%;
+}
+
+.footerCallToAction {
+  background-color: #3f88c5;
+  color: #ffffff;
+  padding: 16px 32px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Utility */
+
+.no-margin {
+  margin: 0;
+}
+
+.hidden {
+  display: none;
 }

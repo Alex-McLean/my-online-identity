@@ -83,8 +83,7 @@ const createContentSettingExpand = (parentDiv: HTMLElement): HTMLParagraphElemen
 const updateContentSettingHeader = (url: string): void => {
   const contentSettingHeader = document.getElementById('contentSettingsHeader');
   if (!contentSettingHeader) return;
-  contentSettingHeader.innerText = `Content settings for ${url}`;
-  contentSettingHeader.className = 'content-setting-content';
+  contentSettingHeader.innerText = `You can quickly turn sharing off using these controls`;
 };
 
 export const constructContentSettings = (): void => {
