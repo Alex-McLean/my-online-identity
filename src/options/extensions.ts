@@ -6,7 +6,7 @@ const showExtensionDetails = (): void => {
   if (!extensionListDiv || !extensionsDetailsDiv) return;
 
   extensionListDiv.className = extensionListDiv.className.replace(/active-extensions-content/g, '');
-  extensionsDetailsDiv.className += 'active-extensions-content';
+  extensionsDetailsDiv.className += ' active-extensions-content';
 };
 
 const showExtensionsList = (): void => {
@@ -15,7 +15,7 @@ const showExtensionsList = (): void => {
   if (!extensionListDiv || !extensionsDetailsDiv) return;
 
   extensionsDetailsDiv.className = extensionsDetailsDiv.className.replace(/active-extensions-content/g, '');
-  extensionListDiv.className += 'active-extensions-content';
+  extensionListDiv.className += ' active-extensions-content';
 };
 
 const createExtensionDetailsDiv = (extension: chrome.management.ExtensionInfo): void => {

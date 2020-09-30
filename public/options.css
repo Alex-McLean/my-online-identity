@@ -37,6 +37,10 @@
   cursor: pointer;
 }
 
+#nav > .nav-item.active-nav-item {
+  color: blue;
+}
+
 /* MAIN CONTENT */
 #content {
   flex: 1;

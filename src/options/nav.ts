@@ -13,8 +13,17 @@ const createNavItem = (args: CreateNavItemArgs): void => {
     }
 
     const contentItem = document.getElementById(args.contentId);
+    console.log(1);
     if (!contentItem) return;
-    contentItem.className += 'active-content';
+    contentItem.className += ' active-content';
+
+    const activeNavItems = document.getElementsByClassName('active-nav-item');
+    for (const activeNavItem of Array.from(activeNavItems)) {
+      activeNavItem.className = activeNavItem.className.replace(/active-nav-item/g, '');
+    }
+    console.log(2);
+
+    navItem.className += ' active-nav-item';
   };
 };
 

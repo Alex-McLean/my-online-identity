@@ -7,7 +7,6 @@ const countRequest = (): void => {
   chrome.storage.local.get(WEB_REQUEST_COUNT_KEY, (items) => {
     const currCount = items[WEB_REQUEST_COUNT_KEY] ?? 0;
     chrome.storage.local.set({ [WEB_REQUEST_COUNT_KEY]: currCount + 1 });
-    chrome.browserAction.setBadgeText({ text: `${currCount + 1}` });
   });
 };
 
