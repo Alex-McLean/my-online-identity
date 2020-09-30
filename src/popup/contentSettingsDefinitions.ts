@@ -1,4 +1,13 @@
-export const getContentSettingsDefinitions = (url: URL) => [
+export interface ContentSettingParagraphArgs {
+  contentSetting: chrome.contentSettings.ContentSetting;
+  label: string;
+  url: URL;
+  options: string[];
+  hide?: boolean;
+  description: string;
+}
+
+export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraphArgs[] => [
   {
     contentSetting: chrome.contentSettings.cookies,
     label: 'Cookies',

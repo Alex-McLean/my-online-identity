@@ -1,17 +1,8 @@
-import { getContentSettingsDefinitions } from './contentSettingsDefinitions';
+import { ContentSettingParagraphArgs, getContentSettingsDefinitions } from './contentSettingsDefinitions';
 
 const getDisplaySetting = (setting: string): string => {
   return setting.replace(/_/g, ' ');
 };
-
-interface ContentSettingParagraphArgs {
-  contentSetting: chrome.contentSettings.ContentSetting;
-  label: string;
-  url: URL;
-  options: string[];
-  hide?: boolean;
-  description: string;
-}
 
 const createContentSettingParagraph = (
   parentDiv: HTMLElement,
@@ -19,17 +10,35 @@ const createContentSettingParagraph = (
   args: ContentSettingParagraphArgs
 ): void => {
   args.contentSetting.get({ primaryUrl: args.url.toString() }, (details) => {
-    const contentSettingParagraph = document.createElement('p');
-    contentSettingParagraph.className = args.hide ? 'content-setting-hidden' : '';
+    const contentSettingContainer = document.createElement('div');
+    contentSettingContainer.className = 'content-setting-description-hidden';
+    contentSettingContainer.className += args.hide ? ' content-setting-hidden' : '';
+
+    const contentSettingParagraph = document.createElement('div');
+    contentSettingParagraph.className = 'content-setting-p';
+
+    const contentSettingReadMore = document.createElement('div');
+    contentSettingReadMore.innerText = 'More';
+    contentSettingReadMore.className = 'content-setting-read-more';
+    contentSettingReadMore.onclick = (): void => {
+      contentSettingContainer.className = contentSettingContainer.className.replace(
+        /content-setting-description-hidden/,
+        ''
+      );
+    };
+    contentSettingParagraph.appendChild(contentSettingReadMore);
+
+    const contentSettingMain = document.createElement('div');
+    contentSettingMain.className = 'content-setting-main';
 
     const contentSettingLabelSpan = document.createElement('span');
-    contentSettingLabelSpan.innerText = `${args.label}: `;
-    contentSettingParagraph.appendChild(contentSettingLabelSpan);
+    contentSettingLabelSpan.innerText = `${args.label}:\u00A0`;
+    contentSettingMain.appendChild(contentSettingLabelSpan);
 
     const contentSettingSpan = document.createElement('span');
     contentSettingSpan.innerText = getDisplaySetting(details.setting);
     contentSettingSpan.className = `content-setting ${details.setting}`;
-    contentSettingParagraph.appendChild(contentSettingSpan);
+    contentSettingMain.appendChild(contentSettingSpan);
 
     const contentSettingSelect = document.createElement('select');
     contentSettingSelect.onchange = (e: Event): void => {
@@ -50,9 +59,18 @@ const createContentSettingParagraph = (
     });
     contentSettingSelect.value = details.setting;
     contentSettingSelect.className = 'content-setting-select';
-    contentSettingParagraph.appendChild(contentSettingSelect);
+    contentSettingMain.appendChild(contentSettingSelect);
 
-    parentDiv.insertBefore(contentSettingParagraph, beforeDiv);
+    contentSettingParagraph.appendChild(contentSettingMain);
+
+    const contentSettingDescription = document.createElement('div');
+    contentSettingDescription.className = 'content-setting-description';
+    contentSettingDescription.innerText = args.description;
+
+    contentSettingContainer.appendChild(contentSettingParagraph);
+    contentSettingContainer.appendChild(contentSettingDescription);
+
+    parentDiv.insertBefore(contentSettingContainer, beforeDiv);
   });
 };
 
@@ -65,14 +83,17 @@ const createContentSettingExpand = (parentDiv: HTMLElement): HTMLParagraphElemen
   contentSettingExpandParagraph.className = 'content-settings-expand';
 
   contentSettingExpandParagraph.onclick = (): void => {
+    console.log(parentDiv.children[0]);
     for (let i = 0; i < parentDiv.children.length; i++) {
-      if (parentDiv.children[i].className === 'content-setting-shown') {
-        parentDiv.children[i].className = 'content-setting-hidden';
+      if (parentDiv.children[i].className.includes('content-setting-shown')) {
+        parentDiv.children[i].className = parentDiv.children[i].className.replace(/content-setting-shown/, '');
+        parentDiv.children[i].className += 'content-setting-hidden';
         continue;
       }
 
-      if (parentDiv.children[i].className === 'content-setting-hidden') {
-        parentDiv.children[i].className = 'content-setting-shown';
+      if (parentDiv.children[i].className.includes('content-setting-hidden')) {
+        parentDiv.children[i].className = parentDiv.children[i].className.replace(/content-setting-hidden/, '');
+        parentDiv.children[i].className += 'content-setting-shown';
       }
     }
 

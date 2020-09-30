@@ -81,10 +81,39 @@ h1 {
 .content-setting-option {
   text-transform: capitalize;
 }
+.content-setting-p {
+  display: flex;
+  flex-direction: row;
+}
+.content-setting-read-more {
+  opacity: 0;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 50px;
+}
+.content-setting-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 100px);
+}
 .content-setting-hidden {
   display: none;
 }
-
+.content-setting-description-hidden:hover {
+  background-color: gainsboro;
+}
+.content-setting-description-hidden:hover .content-setting-read-more {
+  opacity: 1;
+}
+.content-setting-description-hidden .content-setting-read-more:hover {
+  cursor: pointer;
+}
+.content-setting-description-hidden .content-setting-description {
+  display: none;
+}
 .aggregate-content {
   text-align: center;
 }
