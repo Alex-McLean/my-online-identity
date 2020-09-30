@@ -6,15 +6,101 @@
     <link rel="stylesheet" href="build/vendor.css" />
     <script src="build/vendor.js"></script>
   </head>
+
   <body>
-    <h1>Privacy</h1>
-    <div id="privacyDiv"></div>
+    <div id="root">
+      <div id="header">
+        <div id="header-title">My Online Identity</div>
 
-    <h1>Extensions</h1>
-    <div id="extensionsDiv"></div>
+        <div id="header-subtitle">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.
+        </div>
+      </div>
 
-    <h1>Web Requests</h1>
-    <div id="webRequestDiv"></div>
+      <div id="main">
+        <div id="nav">
+          <div id="privacy-nav-item" class="nav-item">Browser Privacy</div>
+
+          <div id="extensions-nav-item" class="nav-item">Extensions</div>
+
+          <div id="settings-nav-item" class="nav-item">Settings</div>
+        </div>
+
+        <div id="content">
+          <div id="privacy">
+            <div id="privacy-header">
+              <div id="privacy-title">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+              </div>
+
+              <div id="privacy-button-container">
+                <button id="privacy-button">Use All Recommended Settings</button>
+              </div>
+            </div>
+            <div id="privacy-body"></div>
+          </div>
+
+          <div id="extensions">
+            <div id="extensions-list" class="active-extensions-content">
+              <div id="extensions-list-header">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+              </div>
+
+              <div id="extensions-list-body"></div>
+            </div>
+            <div id="extension-details">
+              <div id="extension-details-header">
+                <div id="extension-details-back">
+                  <div id="extension-details-back-button">X</div>
+                </div>
+
+                <div id="extension-details-icon"></div>
+
+                <div id="extension-details-name"></div>
+
+                <div id="extension-details-actions">
+                  <button id="extension-details-uninstall-button">UNINSTALL EXTENSION</button>
+                </div>
+              </div>
+
+              <div id="extension-details-description"></div>
+
+              <div id="extension-details-body">
+                <div id="extension-details-body-title">Permissions Accessed</div>
+
+                <div id="extension-details-body-permissions"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="settings" class="active-content">
+            <div id="settings-header">My Online Identity Settings</div>
+
+            <div id="settings-lists">
+              <div class="settings-list-container">
+                <div class="settings-list-header">Allow</div>
+                <textarea id="settings-allow" rows="10"></textarea>
+              </div>
+
+              <div class="settings-list-container">
+                <div class="settings-list-header">Block</div>
+                <textarea id="settings-block" rows="10"></textarea>
+              </div>
+            </div>
+
+            <div id="settings-actions">
+              <button id="settings-actions-save-button">SAVE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
   <script src="build/options.js"></script>
 </html>

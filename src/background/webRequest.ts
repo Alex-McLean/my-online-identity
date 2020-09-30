@@ -1,3 +1,6 @@
+export const WEB_REQUEST_ALLOW_LIST_KEY = 'webRequests.allowList';
+export const WEB_REQUEST_BLOCK_LIST_KEY = 'webRequests.blockList';
+
 export const WEB_REQUEST_COUNT_KEY = 'webRequests.count';
 
 const countRequest = (): void => {

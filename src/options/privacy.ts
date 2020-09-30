@@ -1,93 +1,166 @@
 interface PrivacyParagraphArgs {
   setting: chrome.types.ChromeSetting;
-  span: {
+  strings: {
     label: string;
     trueText: string;
     falseText: string;
   };
-  button: {
-    trueText: string;
-    falseText: string;
-  };
+  recommended: boolean;
+  details: string;
 }
-const createPrivacyParagraph = (args: PrivacyParagraphArgs): void => {
-  args.setting.get({}, (details) => {
-    const privacyDiv = document.getElementById('privacyDiv');
-    if (!privacyDiv) return;
 
-    const privacyParagraph = document.createElement('p');
-
-    const privacySpan = document.createElement('span');
-    privacySpan.innerText = `${args.span.label}: `;
-    privacySpan.innerText += details.value ? args.span.trueText : args.span.falseText;
-    privacyParagraph.appendChild(privacySpan);
-
-    const privacyButton = document.createElement('button');
-    privacyButton.className = 'privacy-button';
-    privacyButton.innerText = details.value ? args.button.trueText : args.button.falseText;
-    privacyButton.onclick = (): void => {
-      const newValue = privacyButton.innerText === args.button.trueText;
-      args.setting.set({ value: newValue }, () => {
-        privacySpan.innerText = newValue ? args.span.trueText : args.span.falseText;
-        privacyButton.innerText = newValue ? args.button.trueText : args.button.falseText;
-      });
-    };
-    privacyParagraph.appendChild(privacyButton);
-
-    privacyDiv.appendChild(privacyParagraph);
-  });
-};
-
-export const constructPrivacy = (): void => {
-  createPrivacyParagraph({
+const PRIVACY_SETTINGS: PrivacyParagraphArgs[] = [
+  {
+    setting: chrome.privacy.services.autofillAddressEnabled,
+    strings: {
+      label: 'Address Autofill',
+      trueText: 'Enabled',
+      falseText: 'Disabled',
+    },
+    recommended: false,
+    details:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  },
+  {
     setting: chrome.privacy.services.autofillCreditCardEnabled,
-    span: {
+    strings: {
       label: 'Credit Card Autofill',
       trueText: 'Enabled',
       falseText: 'Disabled',
     },
-    button: {
-      trueText: 'Disable',
-      falseText: 'Enable',
+    recommended: false,
+    details:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  },
+  {
+    setting: chrome.privacy.services.safeBrowsingEnabled,
+    strings: {
+      label: 'Safe Browsing Enabled',
+      trueText: 'Enabled',
+      falseText: 'Disabled',
     },
-  });
-
-  createPrivacyParagraph({
+    recommended: true,
+    details:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  },
+  {
     setting: chrome.privacy.websites.thirdPartyCookiesAllowed,
-    span: {
+    strings: {
       label: 'Third Party Cookies',
       trueText: 'Allowed',
       falseText: 'Blocked',
     },
-    button: {
-      trueText: 'Block',
-      falseText: 'Allow',
-    },
-  });
-
-  createPrivacyParagraph({
+    recommended: false,
+    details:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  },
+  {
     setting: chrome.privacy.websites.referrersEnabled,
-    span: {
+    strings: {
       label: 'Referrers',
       trueText: 'Enabled',
       falseText: 'Disabled',
     },
-    button: {
-      trueText: 'Disable',
-      falseText: 'Enable',
-    },
-  });
-
-  createPrivacyParagraph({
+    recommended: false,
+    details:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  },
+  {
     setting: chrome.privacy.websites.doNotTrackEnabled,
-    span: {
+    strings: {
       label: 'Do Not Track',
       trueText: 'Enabled',
       falseText: 'Disabled',
     },
-    button: {
-      trueText: 'Disable',
-      falseText: 'Enable',
-    },
+    recommended: true,
+    details:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  },
+];
+
+const createRecommendedSettingsButton = (settings: PrivacyParagraphArgs[]): void => {
+  const recommendedSettingsButton = document.getElementById('privacy-button');
+  if (!recommendedSettingsButton) return;
+
+  recommendedSettingsButton.onclick = (): void => {
+    settings.forEach((setting) => {
+      const privacySettingSelectId = `privacy-setting-select-${setting.strings.label
+        .toLocaleLowerCase()
+        .replace(/ /g, '-')}`;
+      const privacySettingSelect = document.getElementById(privacySettingSelectId);
+      if (!privacySettingSelect) return;
+
+      const recommendedValue = setting.recommended ? setting.strings.trueText : setting.strings.falseText;
+      (privacySettingSelect as HTMLSelectElement).value = recommendedValue;
+      privacySettingSelect.dispatchEvent(new Event('change'));
+    });
+  };
+};
+
+const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
+  args.setting.get({}, (details) => {
+    const privacyDiv = document.getElementById('privacy-body');
+    if (!privacyDiv) return;
+
+    const privacySettingDiv = document.createElement('div');
+    privacySettingDiv.id = `privacy-setting-${args.strings.label.toLocaleLowerCase().replace(/ /g, '-')}`;
+    privacySettingDiv.className = 'privacy-setting';
+
+    const privacySettingHeader = document.createElement('div');
+    privacySettingHeader.className = 'privacy-setting-header';
+    privacySettingDiv.appendChild(privacySettingHeader);
+
+    const privacySettingTitle = document.createElement('div');
+    privacySettingTitle.className = 'privacy-setting-title';
+    privacySettingTitle.innerText = args.strings.label;
+    privacySettingHeader.appendChild(privacySettingTitle);
+
+    const privacySettingSelect = document.createElement('select');
+    privacySettingSelect.id = `privacy-setting-select-${args.strings.label.toLocaleLowerCase().replace(/ /g, '-')}`;
+    privacySettingSelect.className = `privacy-setting-select ${details.value === args.recommended ? 'ok' : 'warn'}`;
+    privacySettingSelect.onchange = (e: Event): void => {
+      const target = e.currentTarget;
+      if (!target) return;
+      const newValue = (target as HTMLSelectElement).value === args.strings.trueText;
+      args.setting.set({ value: newValue }, () => {
+        privacySettingSelect.className = `privacy-setting-select ${newValue === args.recommended ? 'ok' : 'warn'}`;
+      });
+    };
+    [args.strings.trueText, args.strings.falseText].forEach((option) => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option;
+      optionElement.innerText = option;
+      optionElement.className = `privacy-setting-option ${
+        (option === args.strings.trueText) === args.recommended ? 'ok' : 'warn'
+      }`;
+      privacySettingSelect.appendChild(optionElement);
+    });
+    privacySettingSelect.value = details.value ? args.strings.trueText : args.strings.falseText;
+    privacySettingHeader.appendChild(privacySettingSelect);
+
+    const privacySettingDetails = document.createElement('div');
+    privacySettingDetails.className = 'privacy-setting-details';
+
+    const privacySettingRecommendation = document.createElement('div');
+    privacySettingRecommendation.className = 'privacy-setting-details-recommendation';
+    privacySettingRecommendation.innerText = `Recommended: ${
+      args.recommended ? args.strings.trueText : args.strings.falseText
+    }`;
+    privacySettingDetails.appendChild(privacySettingRecommendation);
+
+    const privacySettingDetailsBody = document.createElement('div');
+    privacySettingDetailsBody.className = 'privacy-setting-details-body';
+    privacySettingDetailsBody.innerText = args.details;
+    privacySettingDetails.appendChild(privacySettingDetailsBody);
+
+    privacySettingDiv.appendChild(privacySettingDetails);
+
+    privacyDiv.appendChild(privacySettingDiv);
   });
+};
+
+export const constructPrivacy = (): void => {
+  createRecommendedSettingsButton(PRIVACY_SETTINGS);
+
+  PRIVACY_SETTINGS.forEach((setting) => void createPrivacySettingDiv(setting));
 };

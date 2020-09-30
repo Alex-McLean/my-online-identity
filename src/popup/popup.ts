@@ -1,4 +1,3 @@
-import { createAccordions } from './accordion';
 import { createAggregate } from './aggregate';
 import { constructContentSettings } from './contentSettings';
 import { constructCookies } from './cookies';
@@ -9,5 +8,4 @@ createAggregate();
 constructContentSettings();
 constructWebRequest();
 constructCookies();
-// createAccordions();
 createPisSection();

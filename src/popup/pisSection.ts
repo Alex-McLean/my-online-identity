@@ -1,4 +1,4 @@
-export const createPisSection = () => {
+export const createPisSection = (): void => {
   const contentOne = document.getElementById('content-1');
   const contentTwo = document.getElementById('content-2');
   const pisCallToAction = document.getElementById('pisCallToAction');

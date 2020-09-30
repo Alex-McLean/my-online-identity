@@ -80,7 +80,7 @@ const createContentSettingExpand = (parentDiv: HTMLElement): HTMLParagraphElemen
   return contentSettingExpandParagraph;
 };
 
-const updateContentSettingHeader = (url: string): void => {
+const updateContentSettingHeader = (): void => {
   const contentSettingHeader = document.getElementById('contentSettingsHeader');
   if (!contentSettingHeader) return;
   contentSettingHeader.innerText = `You can quickly turn sharing off using these controls`;
@@ -93,7 +93,7 @@ export const constructContentSettings = (): void => {
 
     const url = new URL(activeTab.url);
 
-    updateContentSettingHeader(url.hostname);
+    updateContentSettingHeader();
 
     const contentSettingContentDiv = document.getElementById('contentSettingsContent');
     if (!contentSettingContentDiv) return;

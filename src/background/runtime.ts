@@ -1,4 +1,10 @@
-import { WEB_REQUEST_COUNT_KEY, WEB_REQUEST_HOSTS_KEY, WEB_REQUEST_INITIATORS_KEY } from './webRequest';
+import {
+  WEB_REQUEST_ALLOW_LIST_KEY,
+  WEB_REQUEST_BLOCK_LIST_KEY,
+  WEB_REQUEST_COUNT_KEY,
+  WEB_REQUEST_HOSTS_KEY,
+  WEB_REQUEST_INITIATORS_KEY,
+} from './webRequest';
 
 export const monitorRuntime = (): void => {
   chrome.runtime.onInstalled.addListener(function () {
@@ -19,4 +25,7 @@ export const monitorRuntime = (): void => {
   chrome.storage.local.set({ [WEB_REQUEST_COUNT_KEY]: 0 });
   chrome.storage.local.set({ [WEB_REQUEST_HOSTS_KEY]: {} });
   chrome.storage.local.set({ [WEB_REQUEST_INITIATORS_KEY]: {} });
+
+  chrome.storage.local.set({ [WEB_REQUEST_ALLOW_LIST_KEY]: [] });
+  chrome.storage.local.set({ [WEB_REQUEST_BLOCK_LIST_KEY]: [] });
 };

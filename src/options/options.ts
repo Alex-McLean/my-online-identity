@@ -1,7 +1,9 @@
 import { constructExtensions } from './extensions';
+import { constructNav } from './nav';
 import { constructPrivacy } from './privacy';
-import { constructWebRequest } from './webRequest';
+import { constructSettings } from './settings';
 
+constructNav();
 constructPrivacy();
 constructExtensions();
-constructWebRequest();
+constructSettings();

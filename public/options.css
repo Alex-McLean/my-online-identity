@@ -1,17 +1,241 @@
-/* PRIVACY */
-.privacy-button {
-  margin-left: 10px;
+/* GENERAL */
+#root {
+  left: 0;
+  right: 0;
+  width: 800px;
+  margin: auto;
+}
+
+/* LAYOUT */
+#header {
+  border-bottom: 1px solid black;
+}
+
+#header-title {
+  font-size: 36px;
+}
+
+#header-subtitle {
+  margin: 10px 0;
+}
+
+#main {
+  display: flex;
+  flex-direction: row;
+}
+
+/* NAV */
+#nav {
+  border-right: 1px solid black;
+  flex: 1;
+  flex-grow: 1;
+}
+
+#nav > .nav-item {
+  font-size: 20px;
+  padding: 20px 10px;
+  cursor: pointer;
+}
+
+/* MAIN CONTENT */
+#content {
+  flex: 1;
+  flex-grow: 3;
+}
+
+#content > div {
+  display: none;
+}
+
+#content > div.active-content {
+  display: unset;
+}
+
+/* BROWSER PRIVACY */
+#privacy-header {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+#privacy-title {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+#privacy-button-container {
+  flex-shrink: 1;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+#privacy-body {
+  padding: 20px;
+}
+
+.privacy-setting {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.privacy-setting-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.privacy-setting-title {
+  flex-grow: 1;
+}
+
+.privacy-setting-select {
+  flex-shrink: 1;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+.privacy-setting-select.ok,
+.privacy-setting-option.ok {
+  color: green;
+}
+
+.privacy-setting-select.warn,
+.privacy-setting-option.warn {
+  color: red;
+}
+
+.privacy-setting-details-recommendation {
+  padding: 10px 0;
 }
 
 /* EXTENSIONS */
-.tippy-content {
+#extensions > div {
+  display: none;
+}
+
+#extensions > div.active-extensions-content {
+  display: unset;
+}
+
+/* EXTENSIONS LIST */
+#extensions-list-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+#extensions-list-body {
+  padding: 20px;
+}
+
+.extension-list-item {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.extension-list-item-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.extension-list-item-icon {
+  height: 16px;
+  margin-right: 10px;
+}
+
+.extension-list-item-title {
+  flex-grow: 1;
+}
+
+.extension-list-item-description {
+  padding: 10px 0;
+}
+
+/* EXTENSION DETAILS */
+#extension-details-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 20px 0 20px;
+  width: calc(100% - 40px);
+}
+
+#extension-details-back-button {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 20px;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
   text-align: center;
+  line-height: 20px;
+  margin-right: 10px;
 }
 
-.tippy-box[data-theme~='moi'][data-placement^='top'] > .tippy-arrow:before {
-  left: -150px;
+#extension-details-icon > img {
+  height: 16px;
+  margin-right: 10px;
 }
 
-.extension-name {
+#extension-details-name {
+  flex-grow: 1;
+}
+
+#extension-details-description {
+  margin-top: 10px;
+  padding: 0px 20px 20px 20px;
+}
+
+#extension-details-body {
+  padding: 20px;
+}
+
+#extension-details-body-title {
+  font-size: 20px;
   font-weight: bold;
+}
+
+#extension-details-body-permissions {
+  margin-top: 20px;
+}
+
+.extension-details-permission {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+/* SETTINGS */
+#settings-header {
+  padding: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#settings-lists {
+  margin: 20px;
+}
+
+.settings-list-container {
+  margin-bottom: 20px;
+}
+
+.settings-list-header {
+  font-size: 16px;
+}
+
+.settings-list-container > textarea {
+  width: 100%;
+}
+
+#settings-actions {
+  padding: 20px;
+}
+
+#settings-actions > button {
+  min-width: 150px;
 }
