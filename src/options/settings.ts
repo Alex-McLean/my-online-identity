@@ -1,4 +1,4 @@
-import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST } from '../background/defaultSettings';
+import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST, HARDCODED_BLOCK_LIST } from '../background/defaultSettings';
 import { WEB_REQUEST_ALLOW_LIST_KEY, WEB_REQUEST_BLOCK_LIST_KEY } from '../background/webRequest';
 
 interface SettingsList {
@@ -29,6 +29,18 @@ const constructList = (settingsList: SettingsList): void => {
   });
 };
 
+const constructHardcodedBlockList = (): void => {
+  const hardcodedBlockListDiv = document.getElementById('settings-list-hardcoded');
+  if (!hardcodedBlockListDiv) return;
+
+  HARDCODED_BLOCK_LIST.forEach((block) => {
+    const blockListItem = document.createElement('div');
+    blockListItem.className = 'settings-list-hardcoded-item';
+    blockListItem.innerText = block;
+    hardcodedBlockListDiv.appendChild(blockListItem);
+  });
+};
+
 const saveList = (settingsList: SettingsList): void => {
   const textarea = document.getElementById(settingsList.textareaId) as HTMLTextAreaElement | null;
   if (!textarea) return;
@@ -47,5 +59,6 @@ const constructSaveButton = (): void => {
 export const constructSettings = (): void => {
   constructSaveButton();
 
+  constructHardcodedBlockList();
   SETTINGS_LISTS.forEach((list) => constructList(list));
 };

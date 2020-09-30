@@ -237,6 +237,10 @@
   width: 100%;
 }
 
+#settings-list-hardcoded {
+  margin: 10px 0;
+}
+
 #settings-actions {
   padding: 20px;
 }

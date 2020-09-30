@@ -1,4 +1,4 @@
-import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST } from './defaultSettings';
+import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST, HARDCODED_BLOCK_LIST } from './defaultSettings';
 
 export const WEB_REQUEST_ALLOW_LIST_KEY = 'webRequests.allowList';
 export const WEB_REQUEST_BLOCK_LIST_KEY = 'webRequests.blockList';
@@ -80,34 +80,50 @@ interface WebRequestWarning {
 }
 
 export interface WebRequestWarnings {
-  [initiator: string]: WebRequestWarning[];
+  [tabId: number]: WebRequestWarning[];
 }
 
-const addWarning = (initiator: string, warning: WebRequestWarning): void => {
+const addWarning = (tabId: number, warning: WebRequestWarning): void => {
   chrome.storage.local.get(WEB_REQUEST_WARNINGS_KEY, (items) => {
     const existingWebRequestWarnings: WebRequestWarnings = items[WEB_REQUEST_WARNINGS_KEY] ?? {};
-    const existingWebRequestHostWarnings = existingWebRequestWarnings[initiator] ?? [];
+    const existingWebRequestHostWarnings = existingWebRequestWarnings[tabId] ?? [];
     chrome.storage.local.set({
       [WEB_REQUEST_WARNINGS_KEY]: {
         ...existingWebRequestWarnings,
-        [initiator]: [...existingWebRequestHostWarnings, warning],
+        [tabId]: [...existingWebRequestHostWarnings, warning],
       },
     });
   });
 };
 
-const checkAgainstBlacklist = (initiatorUrl: URL, destinationUrl: URL): void => {
+export const matchesList = (list: string[], test: string): boolean => {
+  return !!list.find((listItem) => {
+    if (listItem.startsWith('/') && listItem.endsWith('/')) {
+      const regExp = new RegExp(listItem);
+      return regExp.exec(test);
+    }
+
+    return test.includes(listItem);
+  });
+};
+
+const checkAgainstBlacklist = (
+  initiatorUrl: URL,
+  destinationUrl: URL,
+  details: chrome.webRequest.WebRequestBodyDetails
+): void => {
   chrome.storage.local.get(WEB_REQUEST_BLOCK_LIST_KEY, (items) => {
     const blockList: string[] = items[WEB_REQUEST_BLOCK_LIST_KEY] ?? DEFAULT_BLOCK_LIST;
-    const blockListMatch = blockList.find((blockListItem) => destinationUrl.toString().includes(blockListItem));
+    const fullBlockList = [...blockList, ...HARDCODED_BLOCK_LIST];
+    const blockListMatch = matchesList(fullBlockList, destinationUrl.toString());
     if (!blockListMatch) return;
 
     chrome.storage.local.get(WEB_REQUEST_ALLOW_LIST_KEY, (items) => {
       const allowList: string[] = items[WEB_REQUEST_ALLOW_LIST_KEY] ?? DEFAULT_ALLOW_LIST;
-      const allowListMatch = allowList.find((allowListItem) => destinationUrl.toString().includes(allowListItem));
+      const allowListMatch = matchesList(allowList, initiatorUrl.toString());
       if (allowListMatch) return;
 
-      addWarning(initiatorUrl.host, {
+      addWarning(details.tabId, {
         content: {
           body: `Outbound network request sent to ${destinationUrl.host}`,
         },
@@ -127,7 +143,7 @@ const checkForInsecurePost = (
   if (initiatorSecure === destinationSecure) return;
   if (ALLOWED_INSECURE_METHODS.includes(details.method)) return;
 
-  addWarning(initiatorUrl.host, {
+  addWarning(details.tabId, {
     content: {
       body: `Mismatch in network protocols making a ${details.method} request to ${destinationUrl.host}`,
     },
@@ -139,7 +155,7 @@ const checkForWarnings = (
   destinationUrl: URL,
   details: chrome.webRequest.WebRequestBodyDetails
 ): void => {
-  checkAgainstBlacklist(initiatorUrl, destinationUrl);
+  checkAgainstBlacklist(initiatorUrl, destinationUrl, details);
   checkForInsecurePost(initiatorUrl, destinationUrl, details);
 };
 

@@ -1,3 +1,5 @@
+import { getContentSettingsDefinitions } from './contentSettingsDefinitions';
+
 const getDisplaySetting = (setting: string): string => {
   return setting.replace(/_/g, ' ');
 };
@@ -8,6 +10,7 @@ interface ContentSettingParagraphArgs {
   url: URL;
   options: string[];
   hide?: boolean;
+  description: string;
 }
 
 const createContentSettingParagraph = (
@@ -102,81 +105,8 @@ export const constructContentSettings = (): void => {
     const contentSettingExpand = createContentSettingExpand(contentSettingContentDiv);
     contentSettingContentDiv.appendChild(contentSettingExpand);
 
-    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
-      contentSetting: chrome.contentSettings.cookies,
-      label: 'Cookies',
-      url: url,
-      options: ['allow', 'block', 'session_only'],
-    });
-
-    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
-      contentSetting: chrome.contentSettings.images,
-      label: 'Images',
-      url: url,
-      options: ['allow', 'block'],
-      hide: true,
-    });
-
-    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
-      contentSetting: chrome.contentSettings.javascript,
-      label: 'JavaScript',
-      url: url,
-      options: ['allow', 'block'],
-      hide: true,
-    });
-
-    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
-      contentSetting: chrome.contentSettings.location,
-      label: 'Location',
-      url: url,
-      options: ['allow', 'block', 'ask'],
-    });
-
-    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
-      contentSetting: chrome.contentSettings.plugins,
-      label: 'Plugins',
-      url: url,
-      options: ['allow', 'block', 'detect_important_content'],
-      hide: true,
-    });
-
-    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
-      contentSetting: chrome.contentSettings.popups,
-      label: 'Popups',
-      url: url,
-      options: ['allow', 'block'],
-      hide: true,
-    });
-
-    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
-      contentSetting: chrome.contentSettings.notifications,
-      label: 'Notifications',
-      url: url,
-      options: ['allow', 'block', 'ask'],
-      hide: true,
-    });
-
-    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
-      contentSetting: chrome.contentSettings.microphone,
-      label: 'Microphone',
-      url: url,
-      options: ['allow', 'block', 'ask'],
-    });
-
-    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
-      contentSetting: chrome.contentSettings.unsandboxedPlugins,
-      label: 'Unsandboxed Plugins',
-      url: url,
-      options: ['allow', 'block', 'ask'],
-      hide: true,
-    });
-
-    createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, {
-      contentSetting: chrome.contentSettings.automaticDownloads,
-      label: 'Automatic Downloads',
-      url: url,
-      options: ['allow', 'block', 'ask'],
-      hide: true,
-    });
+    getContentSettingsDefinitions(url).forEach((def) =>
+      createContentSettingParagraph(contentSettingContentDiv, contentSettingExpand, def)
+    );
   });
 };
