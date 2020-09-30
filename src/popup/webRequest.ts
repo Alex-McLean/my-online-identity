@@ -2,6 +2,8 @@ import {
   WEB_REQUEST_INITIATORS_KEY,
   WebRequestInitiatorDestination,
   WebRequestInitiators,
+  WEB_REQUEST_WARNINGS_KEY,
+  WebRequestWarnings,
 } from '../background/webRequest';
 
 const sortDestinations = (
@@ -40,10 +42,30 @@ const createDestinationParagraphs = (initiator: string): void => {
   });
 };
 
-const updateWebRequestHeader = (url: string): void => {
+const updateWebRequestHeader = (initiator: string): void => {
   const webRequestHeader = document.getElementById('webRequestHeader');
   if (!webRequestHeader) return;
-  webRequestHeader.innerText = `Outbound requests from ${url}`;
+  webRequestHeader.innerText = `Outbound requests from ${initiator}`;
+};
+
+const updateTrustHeader = (initiator: string): void => {
+  const trustHeader = document.getElementById('trustHeader');
+  if (!trustHeader) return;
+
+  chrome.storage.local.get(WEB_REQUEST_WARNINGS_KEY, (items) => {
+    const existingWebRequestWarnings: WebRequestWarnings = items[WEB_REQUEST_WARNINGS_KEY] ?? {};
+    const existingWebRequestHostWarnings = existingWebRequestWarnings[initiator] ?? [];
+
+    trustHeader.className = existingWebRequestHostWarnings.length ? 'red' : 'grey';
+
+    const trustHeaderH1 = document.createElement('h1');
+    trustHeaderH1.innerText = existingWebRequestHostWarnings.length
+      ? 'This site may be breaking your trust'
+      : 'This site is a good Christian boy';
+    trustHeader.appendChild(trustHeaderH1);
+
+    console.log(existingWebRequestHostWarnings);
+  });
 };
 
 export const constructWebRequest = (): void => {
@@ -53,6 +75,7 @@ export const constructWebRequest = (): void => {
 
     const url = new URL(activeTab.url);
 
+    updateTrustHeader(url.hostname);
     updateWebRequestHeader(url.hostname);
     createDestinationParagraphs(url.hostname);
   });

@@ -1,9 +1,11 @@
+import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST } from './defaultSettings';
 import {
   WEB_REQUEST_ALLOW_LIST_KEY,
   WEB_REQUEST_BLOCK_LIST_KEY,
   WEB_REQUEST_COUNT_KEY,
   WEB_REQUEST_HOSTS_KEY,
   WEB_REQUEST_INITIATORS_KEY,
+  WEB_REQUEST_WARNINGS_KEY,
 } from './webRequest';
 
 export const monitorRuntime = (): void => {
@@ -26,6 +28,8 @@ export const monitorRuntime = (): void => {
   chrome.storage.local.set({ [WEB_REQUEST_HOSTS_KEY]: {} });
   chrome.storage.local.set({ [WEB_REQUEST_INITIATORS_KEY]: {} });
 
-  chrome.storage.local.set({ [WEB_REQUEST_ALLOW_LIST_KEY]: [] });
-  chrome.storage.local.set({ [WEB_REQUEST_BLOCK_LIST_KEY]: [] });
+  chrome.storage.local.set({ [WEB_REQUEST_ALLOW_LIST_KEY]: DEFAULT_ALLOW_LIST });
+  chrome.storage.local.set({ [WEB_REQUEST_BLOCK_LIST_KEY]: DEFAULT_BLOCK_LIST });
+
+  chrome.storage.local.set({ [WEB_REQUEST_WARNINGS_KEY]: {} });
 };

@@ -1,3 +1,5 @@
+import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST } from './defaultSettings';
+
 export const WEB_REQUEST_ALLOW_LIST_KEY = 'webRequests.allowList';
 export const WEB_REQUEST_BLOCK_LIST_KEY = 'webRequests.blockList';
 
@@ -69,6 +71,78 @@ const countInitiatorRequest = (initiatorUrl: URL, destinationUrl: URL): void => 
   });
 };
 
+export const WEB_REQUEST_WARNINGS_KEY = 'webRequests.warnings';
+
+interface WebRequestWarning {
+  content: {
+    body: string;
+  };
+}
+
+export interface WebRequestWarnings {
+  [initiator: string]: WebRequestWarning[];
+}
+
+const addWarning = (initiator: string, warning: WebRequestWarning): void => {
+  chrome.storage.local.get(WEB_REQUEST_WARNINGS_KEY, (items) => {
+    const existingWebRequestWarnings: WebRequestWarnings = items[WEB_REQUEST_WARNINGS_KEY] ?? {};
+    const existingWebRequestHostWarnings = existingWebRequestWarnings[initiator] ?? [];
+    chrome.storage.local.set({
+      [WEB_REQUEST_WARNINGS_KEY]: {
+        ...existingWebRequestWarnings,
+        [initiator]: [...existingWebRequestHostWarnings, warning],
+      },
+    });
+  });
+};
+
+const checkAgainstBlacklist = (initiatorUrl: URL, destinationUrl: URL): void => {
+  chrome.storage.local.get(WEB_REQUEST_BLOCK_LIST_KEY, (items) => {
+    const blockList: string[] = items[WEB_REQUEST_BLOCK_LIST_KEY] ?? DEFAULT_BLOCK_LIST;
+    const blockListMatch = blockList.find((blockListItem) => destinationUrl.toString().includes(blockListItem));
+    if (!blockListMatch) return;
+
+    chrome.storage.local.get(WEB_REQUEST_ALLOW_LIST_KEY, (items) => {
+      const allowList: string[] = items[WEB_REQUEST_ALLOW_LIST_KEY] ?? DEFAULT_ALLOW_LIST;
+      const allowListMatch = allowList.find((allowListItem) => destinationUrl.toString().includes(allowListItem));
+      if (allowListMatch) return;
+
+      addWarning(initiatorUrl.host, {
+        content: {
+          body: `Outbound network request sent to ${destinationUrl.host}`,
+        },
+      });
+    });
+  });
+};
+
+const ALLOWED_INSECURE_METHODS = ['GET', 'HEAD'];
+const checkForInsecurePost = (
+  initiatorUrl: URL,
+  destinationUrl: URL,
+  details: chrome.webRequest.WebRequestBodyDetails
+): void => {
+  const initiatorSecure = initiatorUrl.protocol === 'https:';
+  const destinationSecure = destinationUrl.protocol === 'https:';
+  if (initiatorSecure === destinationSecure) return;
+  if (ALLOWED_INSECURE_METHODS.includes(details.method)) return;
+
+  addWarning(initiatorUrl.host, {
+    content: {
+      body: `Mismatch in network protocols making a ${details.method} request to ${destinationUrl.host}`,
+    },
+  });
+};
+
+const checkForWarnings = (
+  initiatorUrl: URL,
+  destinationUrl: URL,
+  details: chrome.webRequest.WebRequestBodyDetails
+): void => {
+  checkAgainstBlacklist(initiatorUrl, destinationUrl);
+  checkForInsecurePost(initiatorUrl, destinationUrl, details);
+};
+
 export const monitorWebRequest = (): void => {
   chrome.webRequest.onBeforeRequest.addListener(
     (details) => {
@@ -78,6 +152,7 @@ export const monitorWebRequest = (): void => {
       countRequest();
       countHostRequest(url);
       if (initiatorUrl) countInitiatorRequest(initiatorUrl, url);
+      if (initiatorUrl) checkForWarnings(initiatorUrl, url, details);
     },
     { urls: ['<all_urls>'] }
   );
