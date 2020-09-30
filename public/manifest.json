@@ -5,19 +5,19 @@
 
   "description": "My Online Identity Chrome Extension",
   "icons": {
-    "16": "icon/get_started16.png",
-    "32": "icon/get_started32.png",
-    "48": "icon/get_started48.png",
-    "128": "icon/get_started128.png"
+    "16": "icon/moi16.png",
+    "32": "icon/moi32.png",
+    "48": "icon/moi48.png",
+    "128": "icon/moi128.png"
   },
 
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icon/get_started16.png",
-      "32": "icon/get_started32.png",
-      "48": "icon/get_started48.png",
-      "128": "icon/get_started128.png"
+      "16": "icon/moi16.png",
+      "32": "icon/moi32.png",
+      "48": "icon/moi48.png",
+      "128": "icon/moi128.png"
     }
   },
 
