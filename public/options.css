@@ -87,13 +87,7 @@
   flex-grow: 1;
   font-size: 32pt;
   font-weight: bolder;
-  color: #383838;
   margin-bottom: 8px;
-  /* display: flex;
-  align-content: center;
-  align-items: center; */
-}
-#privacy-subtitle {
 }
 
 #privacy-button-container {
@@ -109,8 +103,6 @@
 .privacy-setting {
   padding: 10px;
   margin-bottom: 32px;
-  /* border: 1px solid; */
-  /* border-bottom: 1px solid; */
 }
 
 .privacy-setting-header {
@@ -122,7 +114,6 @@
   flex-grow: 1;
   font-size: 19pt;
   font-weight: bold;
-  color: #505050;
 }
 
 .privacy-setting-select {
@@ -135,39 +126,19 @@
 }
 
 .privacy-setting-details-recommendation {
-  /* color: #4087c5; */
   text-align: right;
   padding-top: 4px;
   padding-bottom: 16px;
-  color: #383838;
 }
-
-/* .privacy-setting-details-recommendation.ok {
-  color: transparent;
-} */
 
 .privacy-setting-details-recommendation.warn {
   color: #e25555;
 }
 
-.privacy-setting-details-body {
-  color: #282828;
-}
-
 .privacy-setting-reasons-heading {
-  color: rgb(117, 117, 117);
   margin-top: 16px;
   margin-bottom: 4px;
   font-size: 11pt;
-}
-
-.privacy-setting-reasons-heading.recommended {
-  /* color: #282828;
-  font-weight: bold; */
-}
-
-.privacy-setting-reasons {
-  color: #282828;
 }
 
 /* EXTENSIONS */
@@ -324,10 +295,35 @@
   text-transform: capitalize;
 }
 
+.light .font-dark {
+  color: #383838;
+}
+
+.dark .font-dark {
+  color: #ffffff;
+}
+
+.light .font-medium {
+  color: #505050;
+}
+
+.dark .font-medium {
+  color: #cecece;
+}
+
+.light .font-light {
+  color: #757575;
+}
+
+.dark .font-light {
+  color: #ececec;
+}
+
 /* THEMES */
 /* LIGHT */
 .light {
   background-color: #ffffff;
+  color: #282828;
 }
 
 .light #main div {
@@ -369,57 +365,4 @@
 
 .dark textarea {
   outline-color: #404552;
-}
-
-/* HULKAMANIA */
-.hulkamania {
-  background-color: yellow;
-  color: red;
-}
-
-.hulkamania #header {
-  border-bottom-color: red;
-}
-
-.hulkamania #nav-list {
-  border-right-color: red;
-}
-
-.hulkamania #nav-list > .nav-item.active-nav-item {
-  color: black;
-}
-
-.hulkamania .privacy-setting {
-  border-color: red;
-}
-
-.hulkamania .extension-list-item {
-  border-color: red;
-}
-
-.hulkamania #extension-details-back-button {
-  border-color: red;
-}
-
-.hulkamania .extension-details-permission {
-  border-color: red;
-}
-
-.hulkamania button {
-  background-color: red;
-  color: yellow;
-}
-
-.hulkamania select {
-  background-color: yellow;
-}
-
-.hulkamania textarea {
-  background-color: yellow;
-  color: red;
-  border-color: red;
-}
-
-.hulkamania textarea {
-  outline-color: red;
 }

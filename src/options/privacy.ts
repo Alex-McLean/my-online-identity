@@ -35,7 +35,7 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     privacySettingDiv.appendChild(privacySettingHeader);
 
     const privacySettingTitle = document.createElement('div');
-    privacySettingTitle.className = 'privacy-setting-title';
+    privacySettingTitle.className = 'privacy-setting-title font-medium';
     privacySettingTitle.innerText = args.strings.label;
     privacySettingHeader.appendChild(privacySettingTitle);
 
@@ -80,7 +80,7 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     privacySettingDetails.appendChild(privacySettingDetailsBody);
 
     const privacySettingEnableHeading = document.createElement('div');
-    privacySettingEnableHeading.className = 'privacy-setting-reasons-heading';
+    privacySettingEnableHeading.className = 'privacy-setting-reasons-heading font-light';
     privacySettingEnableHeading.innerText = args.strings.trueText === 'Allowed' ? 'Why Allow?' : 'Why Enable?';
 
     const privacySettingEnableReasons = document.createElement('div');
@@ -88,7 +88,7 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     privacySettingEnableReasons.innerText = args.enableReasons;
 
     const privacySettingDisableHeading = document.createElement('div');
-    privacySettingDisableHeading.className = 'privacy-setting-reasons-heading';
+    privacySettingDisableHeading.className = 'privacy-setting-reasons-heading font-light';
     privacySettingDisableHeading.innerText = args.strings.falseText === 'Blocked' ? 'Why Block?' : 'Why Disable?';
 
     const privacySettingDisableReasons = document.createElement('div');
