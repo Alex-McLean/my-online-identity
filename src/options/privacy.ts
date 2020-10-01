@@ -24,6 +24,8 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     const privacyDiv = document.getElementById('privacy-body');
     if (!privacyDiv) return;
 
+    const isRecommendedValueSelected = details.value === args.recommended;
+
     const privacySettingDiv = document.createElement('div');
     privacySettingDiv.id = `privacy-setting-${args.strings.label.toLocaleLowerCase().replace(/ /g, '-')}`;
     privacySettingDiv.className = 'privacy-setting';
@@ -39,7 +41,7 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
 
     const privacySettingSelect = document.createElement('select');
     privacySettingSelect.id = `privacy-setting-select-${args.strings.label.toLocaleLowerCase().replace(/ /g, '-')}`;
-    privacySettingSelect.className = `privacy-setting-select ${details.value === args.recommended ? 'ok' : 'warn'}`;
+    privacySettingSelect.className = `privacy-setting-select ${isRecommendedValueSelected ? 'ok' : 'warn'}`;
     privacySettingSelect.onchange = (e: Event): void => {
       const target = e.currentTarget;
       if (!target) return;
@@ -64,8 +66,10 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     privacySettingDetails.className = 'privacy-setting-details';
 
     const privacySettingRecommendation = document.createElement('div');
-    privacySettingRecommendation.className = 'privacy-setting-details-recommendation';
-    privacySettingRecommendation.innerText = `Recommended: ${
+    privacySettingRecommendation.className = `privacy-setting-details-recommendation ${
+      isRecommendedValueSelected ? 'ok' : 'warn'
+    }`;
+    privacySettingRecommendation.innerText = `We recommend ${
       args.recommended ? args.strings.trueText : args.strings.falseText
     }`;
     privacySettingDetails.appendChild(privacySettingRecommendation);
@@ -77,22 +81,23 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
 
     const privacySettingEnableHeading = document.createElement('div');
     privacySettingEnableHeading.className = 'privacy-setting-reasons-heading';
-    privacySettingEnableHeading.innerText = 'Why Enable?';
-    privacySettingDetails.appendChild(privacySettingEnableHeading);
+    privacySettingEnableHeading.innerText = args.strings.trueText === 'Allowed' ? 'Why Allow?' : 'Why Enable?';
 
     const privacySettingEnableReasons = document.createElement('div');
     privacySettingEnableReasons.className = 'privacy-setting-reasons';
     privacySettingEnableReasons.innerText = args.enableReasons;
-    privacySettingDetails.appendChild(privacySettingEnableReasons);
 
     const privacySettingDisableHeading = document.createElement('div');
     privacySettingDisableHeading.className = 'privacy-setting-reasons-heading';
-    privacySettingDisableHeading.innerText = 'Why Disable?';
-    privacySettingDetails.appendChild(privacySettingDisableHeading);
+    privacySettingDisableHeading.innerText = args.strings.falseText === 'Blocked' ? 'Why Block?' : 'Why Disable?';
 
     const privacySettingDisableReasons = document.createElement('div');
     privacySettingDisableReasons.className = 'privacy-setting-reasons';
     privacySettingDisableReasons.innerText = args.disableReasons;
+
+    privacySettingDetails.appendChild(privacySettingEnableHeading);
+    privacySettingDetails.appendChild(privacySettingEnableReasons);
+    privacySettingDetails.appendChild(privacySettingDisableHeading);
     privacySettingDetails.appendChild(privacySettingDisableReasons);
 
     privacySettingDiv.appendChild(privacySettingDetails);

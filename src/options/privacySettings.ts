@@ -45,17 +45,17 @@ export const PRIVACY_SETTINGS: PrivacyParagraphArgs[] = [
   {
     setting: chrome.privacy.services.safeBrowsingEnabled,
     strings: {
-      label: 'Safe Browsing Enabled',
+      label: 'Safe Browsing',
       trueText: 'Enabled',
       falseText: 'Disabled',
     },
     recommended: true,
     details:
-      'Safe Browsing is a service offered by your browser to intervene if a URL of a website is considered malicious or may be ‘phishing’ your personal information.',
+      "Safe Browsing is a service offered by your browser to intervene if a URL of a website is considered malicious or may be 'phishing' your personal information.",
     enableReasons:
       'Let Google help protect your web experience by letting them warn/reject web activities that may be malicious in nature.',
     disableReasons:
-      'Your browser does not always get it right. Sometimes with the best intentions your browser may block something that may be at first glance dangerous but actually safe and a task that you are confident you want completed. Disable to allow your web experience to be more streamlined and less restrictive. Be confident that the web pages you’re visiting and activities you are doing on the web are safe before disabling.',
+      "Your browser does not always get it right. Sometimes with the best intentions your browser may block something that may be at first glance dangerous but actually safe and a task that you are confident you want completed. Disable to allow your web experience to be more streamlined and less restrictive. Be confident that the web pages you're visiting and activities you are doing on the web are safe before disabling.",
   },
   {
     setting: chrome.privacy.websites.thirdPartyCookiesAllowed,

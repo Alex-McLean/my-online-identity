@@ -8,36 +8,37 @@
   <body id="body">
     <div id="root">
       <div id="header">
-        <div id="header-title">My Online Identity</div>
-
-        <div id="header-subtitle">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-          est laborum.
+        <div id="header-title">
+          <img id="header-title-icon" src="icon/moi128.png" height="32px" width="32px" />
+          My Online Identity
         </div>
+
+        <!-- <div id="header-subtitle">
+          My online identity (Moi) is a tool that lets you closely monitor the privacy and content settings that affect
+          the way that your browser interacts with websites. These pages help you interpret and control global browser
+          settings, while the popup gives more granular control on a site-by-site basis.
+        </div> -->
       </div>
 
       <div id="main">
         <div id="nav">
-          <div id="privacy-nav-item" class="nav-item active-nav-item">Browser Privacy</div>
+          <div id="nav-list">
+            <div id="privacy-nav-item" class="nav-item active-nav-item">Browser Privacy</div>
 
-          <div id="extensions-nav-item" class="nav-item">Extensions</div>
+            <div id="extensions-nav-item" class="nav-item">Extensions</div>
 
-          <div id="settings-nav-item" class="nav-item">Settings</div>
+            <div id="settings-nav-item" class="nav-item">Settings</div>
+          </div>
         </div>
 
         <div id="content">
           <div id="privacy" class="active-content">
             <div id="privacy-header">
-              <div id="privacy-title">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-              </div>
-
-              <div id="privacy-button-container">
-                <button id="privacy-button">Use All Recommended Settings</button>
+              <div id="privacy-title">What can my browser share with other websites?</div>
+              <div id="privacy-subtitle">
+                This is your personal insight screen. Find details on the different browser settings that effect
+                behaviour across all websites that you visit. We suggest using the recommended settings if you're not
+                confident with the details of each option.
               </div>
             </div>
             <div id="privacy-body"></div>

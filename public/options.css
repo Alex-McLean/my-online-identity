@@ -2,17 +2,29 @@
 #root {
   left: 0;
   right: 0;
-  width: 800px;
+  width: 750px;
   margin: auto;
 }
 
 /* LAYOUT */
 #header {
-  border-bottom: 1px solid;
+  /* border-bottom: 1px solid; */
+  margin-top: 64px;
+  color: #383838;
 }
 
 #header-title {
-  font-size: 36px;
+  font-size: 19pt;
+  font-weight: bold;
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+#header-title-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 16px;
 }
 
 #header-subtitle {
@@ -20,27 +32,42 @@
 }
 
 #main {
+  margin-top: 64px;
   display: flex;
   flex-direction: row;
 }
 
 /* NAV */
 #nav {
-  border-right: 1px solid;
   flex: 1;
   flex-grow: 1;
 }
 
-#nav > .nav-item {
+#nav-list {
+  border-right: 1px solid;
+}
+
+#nav-list > .nav-item {
   font-size: 20px;
-  padding: 20px 10px;
+  padding: 12px 0;
   cursor: pointer;
+  font-size: 12pt;
+  color: #696969;
+}
+
+#nav-list > .nav-item:hover:not(.active-nav-item) {
+  text-decoration: underline;
+}
+
+#nav-list > .nav-item.active-nav-item {
+  font-weight: bold;
 }
 
 /* MAIN CONTENT */
 #content {
   flex: 1;
   flex-grow: 3;
+  padding-left: 32px;
 }
 
 #content > div {
@@ -53,15 +80,20 @@
 
 /* BROWSER PRIVACY */
 #privacy-header {
-  display: flex;
-  flex-direction: row;
   padding: 20px;
 }
 
 #privacy-title {
   flex-grow: 1;
-  display: flex;
-  align-items: center;
+  font-size: 32pt;
+  font-weight: bolder;
+  color: #383838;
+  margin-bottom: 8px;
+  /* display: flex;
+  align-content: center;
+  align-items: center; */
+}
+#privacy-subtitle {
 }
 
 #privacy-button-container {
@@ -75,9 +107,10 @@
 }
 
 .privacy-setting {
-  margin: 20px 0;
   padding: 10px;
-  border: 1px solid;
+  margin-bottom: 32px;
+  /* border: 1px solid; */
+  /* border-bottom: 1px solid; */
 }
 
 .privacy-setting-header {
@@ -87,26 +120,54 @@
 
 .privacy-setting-title {
   flex-grow: 1;
+  font-size: 19pt;
+  font-weight: bold;
+  color: #505050;
 }
 
 .privacy-setting-select {
   flex-shrink: 1;
   min-width: 150px;
   cursor: pointer;
-}
-
-.privacy-setting-select.ok,
-.privacy-setting-option.ok {
-  color: green;
-}
-
-.privacy-setting-select.warn,
-.privacy-setting-option.warn {
-  color: red;
+  border: 2px solid #4087c5;
+  border-radius: 4px;
+  padding: 8px;
 }
 
 .privacy-setting-details-recommendation {
-  padding: 10px 0;
+  /* color: #4087c5; */
+  text-align: right;
+  padding-top: 4px;
+  padding-bottom: 16px;
+  color: #383838;
+}
+
+/* .privacy-setting-details-recommendation.ok {
+  color: transparent;
+} */
+
+.privacy-setting-details-recommendation.warn {
+  color: #e25555;
+}
+
+.privacy-setting-details-body {
+  color: #282828;
+}
+
+.privacy-setting-reasons-heading {
+  color: rgb(117, 117, 117);
+  margin-top: 16px;
+  margin-bottom: 4px;
+  font-size: 11pt;
+}
+
+.privacy-setting-reasons-heading.recommended {
+  /* color: #282828;
+  font-weight: bold; */
+}
+
+.privacy-setting-reasons {
+  color: #282828;
 }
 
 /* EXTENSIONS */
@@ -266,35 +327,15 @@
 /* THEMES */
 /* LIGHT */
 .light {
-  background-color: white;
+  background-color: #ffffff;
 }
 
-.light #header {
-  border-bottom-color: black;
+.light #main div {
+  border-color: #dadada;
 }
 
-.light #nav {
-  border-right-color: black;
-}
-
-.light #nav > .nav-item.active-nav-item {
-  color: blue;
-}
-
-.light .privacy-setting {
-  border-color: black;
-}
-
-.light .extension-list-item {
-  border-color: black;
-}
-
-.light #extension-details-back-button {
-  border-color: black;
-}
-
-.light .extension-details-permission {
-  border-color: black;
+.light #nav-list > .nav-item.active-nav-item {
+  color: #4087c5;
 }
 
 /* DARK */
@@ -303,32 +344,12 @@
   color: white;
 }
 
-.dark #header {
-  border-bottom-color: white;
+.dark #main div {
+  border-color: yellow;
 }
 
-.dark #nav {
-  border-right-color: white;
-}
-
-.dark #nav > .nav-item.active-nav-item {
+.dark #nav-list > .nav-item.active-nav-item {
   color: red;
-}
-
-.dark .privacy-setting {
-  border-color: white;
-}
-
-.dark .extension-list-item {
-  border-color: white;
-}
-
-.dark #extension-details-back-button {
-  border-color: white;
-}
-
-.dark .extension-details-permission {
-  border-color: white;
 }
 
 .dark button {
@@ -360,11 +381,11 @@
   border-bottom-color: red;
 }
 
-.hulkamania #nav {
+.hulkamania #nav-list {
   border-right-color: red;
 }
 
-.hulkamania #nav > .nav-item.active-nav-item {
+.hulkamania #nav-list > .nav-item.active-nav-item {
   color: black;
 }
 
