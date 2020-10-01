@@ -1,3 +1,7 @@
+/**
+ * Reference file providing information about all of the privacy settings visible through this extension
+ */
+
 export interface PrivacyParagraphArgs {
   setting: chrome.types.ChromeSetting;
   strings: {
@@ -10,7 +14,6 @@ export interface PrivacyParagraphArgs {
   enableReasons: string;
   disableReasons: string;
 }
-
 export const PRIVACY_SETTINGS: PrivacyParagraphArgs[] = [
   {
     setting: chrome.privacy.services.autofillAddressEnabled,

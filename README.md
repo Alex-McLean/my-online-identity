@@ -7,9 +7,9 @@ Developed initially using the official Chrome [Getting Started Tutorial](https:/
 ## Project Structure
 
 - src: TypeScript source files
-- src/assets: static files
+- public: static files
 - dist: Chrome Extension directory
-- dist/js: Generated JavaScript files
+- dist/build: Generated JavaScript files
 
 ## Setup
 

@@ -1,17 +1,18 @@
+/**
+ * Reference file providing information about all of the possible site content settings
+ */
+
 export interface ContentSettingParagraphArgs {
   contentSetting: chrome.contentSettings.ContentSetting;
   label: string;
-  url: URL;
   options: string[];
   hide?: boolean;
   description: string;
 }
-
-export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraphArgs[] => [
+export const CONTENT_SETTING_DEFINITIONS: ContentSettingParagraphArgs[] = [
   {
     contentSetting: chrome.contentSettings.cookies,
     label: 'Cookies',
-    url: url,
     options: ['allow', 'block', 'session_only'],
     description:
       'A cookie is a small piece of data stored locally on your computer made by a website looking to store information. A cookie can be used to hold information, like a shopping cart, for later use. A cookie could be used by third parties to help create a more seamless experience when on the web.\nWhy Enable?: Cookies help large websites store information locally so that loading web pages can happen more quickly. Enabling cookies will allow large websites to work more effectively on your browser.\nWhy Disable?: Disabling cookies may prevent unsafe websites from picking up cookies that may be stored on your device. Advertisers may search for cookies that may exist to try to target ads towards you. If you do not trust this website, consider disabling this function.',
@@ -19,7 +20,6 @@ export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraph
   {
     contentSetting: chrome.contentSettings.images,
     label: 'Images',
-    url: url,
     options: ['allow', 'block'],
     hide: true,
     description:
@@ -28,7 +28,6 @@ export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraph
   {
     contentSetting: chrome.contentSettings.javascript,
     label: 'JavaScript',
-    url: url,
     options: ['allow', 'block'],
     hide: true,
     description:
@@ -37,7 +36,6 @@ export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraph
   {
     contentSetting: chrome.contentSettings.location,
     label: 'Location',
-    url: url,
     options: ['allow', 'block', 'ask'],
     description:
       'Location gives you the user the ability to decide whether a website should have information on your current location. Using the internet connection you are currently connected too to browse the internet, your location can be determined either through geolocation or GPS.\nTo Enable?: Websites may require your location information to improve their websites. For instance, a website may require your location to check the stock of a product at your closest shop relevant to you. \nTo Disable?:Less than honest websites may for instance collect this instance to not be used to improve your experience but to instead target ads specific to your location. Enabling Do Not Track prevents these websites from seeing your location. Disable Location to prevent an untrustworthy website from knowing your location.',
@@ -45,7 +43,6 @@ export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraph
   {
     contentSetting: chrome.contentSettings.plugins,
     label: 'Plugins',
-    url: url,
     options: ['allow', 'block', 'detect_important_content'],
     hide: true,
     description:
@@ -54,7 +51,6 @@ export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraph
   {
     contentSetting: chrome.contentSettings.popups,
     label: 'Popups',
-    url: url,
     options: ['allow', 'block'],
     hide: true,
     description:
@@ -63,7 +59,6 @@ export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraph
   {
     contentSetting: chrome.contentSettings.notifications,
     label: 'Notifications',
-    url: url,
     options: ['allow', 'block', 'ask'],
     hide: true,
     description:
@@ -72,7 +67,6 @@ export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraph
   {
     contentSetting: chrome.contentSettings.microphone,
     label: 'Microphone',
-    url: url,
     options: ['allow', 'block', 'ask'],
     description:
       'Microphone permission gives a webpage access to your device’s microphone to record audio.\nWhy Enable?: For some applications online audio is crucial. A video conference requires audio for you the user to be heard by the other members. Speech to text application requires you to hear your voice to deliver on the text you are speaking.\nWhy Disable?: Some untrustworthy sites may be recording your audio without you realising. Applications may use this information to collect important information as you speak near the computer. If you do not trust this website, consider disabling this function.',
@@ -80,7 +74,6 @@ export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraph
   {
     contentSetting: chrome.contentSettings.unsandboxedPlugins,
     label: 'Unsandboxed Plugins',
-    url: url,
     options: ['allow', 'block', 'ask'],
     hide: true,
     description:
@@ -89,7 +82,6 @@ export const getContentSettingsDefinitions = (url: URL): ContentSettingParagraph
   {
     contentSetting: chrome.contentSettings.automaticDownloads,
     label: 'Automatic Downloads',
-    url: url,
     options: ['allow', 'block', 'ask'],
     hide: true,
     description:

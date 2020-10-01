@@ -1,10 +1,13 @@
+/**
+ * Reference file providing information about all of the possible extension permissions
+ */
+
 interface PermissionDetails {
   [permission: string]: {
     title: string;
     description: string;
   };
 }
-
 export const PERMISSION_DETAILS: PermissionDetails = {
   activeTab: {
     title: 'Active Tab',

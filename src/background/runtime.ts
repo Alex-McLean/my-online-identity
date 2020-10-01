@@ -1,17 +1,15 @@
-import { SETTINGS_THEME_KEY } from '../options/settings';
-import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST, DEFAULT_THEME } from './defaultSettings';
-import {
-  WEB_REQUEST_ALLOW_LIST_KEY,
-  WEB_REQUEST_BLOCK_LIST_KEY,
-  WEB_REQUEST_COUNT_KEY,
-  WEB_REQUEST_HOSTS_KEY,
-  WEB_REQUEST_INITIATORS_KEY,
-  WEB_REQUEST_WARNINGS_KEY,
-} from './webRequest';
+/**
+ * Modularised background script to encompass any general background use of the chrome.runtime.* APIs
+ */
 
-export const monitorRuntime = (): void => {
+/**
+ * Add listener to the chrome runtime to be executed upon installation of  the extension
+ */
+const addOnInstalledListener = (): void => {
   chrome.runtime.onInstalled.addListener(function () {
+    // Remove any existing declarative content rules just in case
     chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
+      // Declare that this extension can exexute on any page with ':' in the URL (i.e. all pages)
       chrome.declarativeContent.onPageChanged.addRules([
         {
           conditions: [
@@ -24,15 +22,11 @@ export const monitorRuntime = (): void => {
       ]);
     });
   });
+};
 
-  chrome.storage.local.set({ [WEB_REQUEST_COUNT_KEY]: 0 });
-  chrome.storage.local.set({ [WEB_REQUEST_HOSTS_KEY]: {} });
-  chrome.storage.local.set({ [WEB_REQUEST_INITIATORS_KEY]: {} });
-
-  chrome.storage.local.set({ [WEB_REQUEST_ALLOW_LIST_KEY]: DEFAULT_ALLOW_LIST });
-  chrome.storage.local.set({ [WEB_REQUEST_BLOCK_LIST_KEY]: DEFAULT_BLOCK_LIST });
-
-  chrome.storage.local.set({ [WEB_REQUEST_WARNINGS_KEY]: {} });
-
-  chrome.storage.local.set({ [SETTINGS_THEME_KEY]: DEFAULT_THEME });
+/**
+ * General entrypoint to this script
+ */
+export const monitorRuntime = (): void => {
+  addOnInstalledListener();
 };
