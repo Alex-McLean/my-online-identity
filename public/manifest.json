@@ -23,7 +23,7 @@
 
   "background": {
     "persistent": true,
-    "scripts": ["build/vendor.js", "build/background.js"]
+    "scripts": ["build/background.js"]
   },
   "incognito": "split",
   "offline_enabled": true,
@@ -41,11 +41,5 @@
     "contentSettings",
     "management",
     "privacy"
-  ],
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["build/vendor.js"]
-    }
   ]
 }
