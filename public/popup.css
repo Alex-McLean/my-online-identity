@@ -18,7 +18,7 @@ h1 {
 #trustHeader {
   text-align: center;
   padding: 8px;
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid;
 }
 
 .red {
@@ -33,7 +33,7 @@ h1 {
 
 .section-container {
   padding: 16px 32px;
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid;
   text-align: center;
 }
 
@@ -71,7 +71,6 @@ h1 {
 }
 .content-settings-expand {
   text-decoration: underline;
-  color: blue;
   cursor: pointer;
 }
 .content-setting-select {
@@ -131,7 +130,6 @@ h1 {
 }
 
 .call-to-action:hover {
-  color: #383838;
   text-decoration: underline;
 }
 
@@ -163,4 +161,70 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+/* THEMES */
+/* LIGHT */
+.light {
+  background-color: white;
+}
+
+.light .section-container {
+  border-bottom-color: #e9e9e9;
+}
+
+.light #trustHeader {
+  border-bottom-color: #e9e9e9;
+}
+
+.light .content-settings-expand {
+  color: blue;
+}
+
+.light .call-to-action:hover {
+  color: #383838;
+}
+
+/* DARK */
+.dark {
+  background-color: #404552;
+  color: white;
+}
+
+.dark .section-container {
+  border-bottom-color: white;
+}
+
+.dark #trustHeader {
+  border-bottom-color: white;
+}
+
+.dark .content-settings-expand {
+  color: red;
+}
+
+.dark .call-to-action:hover {
+  color: gainsboro;
+}
+
+/* HULKAMANIA */
+.hulkamania {
+  background-color: yellow;
+  color: red;
+}
+
+.hulkamania .section-container {
+  border-bottom-color: red;
+}
+
+.hulkamania #trustHeader {
+  border-bottom-color: red;
+}
+
+.hulkamania .content-settings-expand {
+  color: black;
+}
+
+.hulkamania .call-to-action:hover {
+  color: orangered;
 }
