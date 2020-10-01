@@ -1,29 +1,40 @@
-import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST, HARDCODED_BLOCK_LIST } from './defaultSettings';
+import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST, HARDCODED_BLOCK_LIST, matchesList } from '../options/hostLists';
+/**
+ * This script monitors the web request activity of the user's browser
+ */
 
-export const WEB_REQUEST_ALLOW_LIST_KEY = 'webRequests.allowList';
-export const WEB_REQUEST_BLOCK_LIST_KEY = 'webRequests.blockList';
+import {
+  WEB_REQUEST_COUNT_KEY,
+  WEB_REQUEST_HOSTS_KEY,
+  WEB_REQUEST_INITIATORS_KEY,
+  WEB_REQUEST_WARNINGS_KEY,
+  WEB_REQUEST_BLOCK_LIST_KEY,
+  WEB_REQUEST_ALLOW_LIST_KEY,
+  WebRequestHosts,
+  WebRequestInitiators,
+  WebRequestWarnings,
+  WebRequestWarning,
+} from './storage';
 
-export const WEB_REQUEST_COUNT_KEY = 'webRequests.count';
-
+/**
+ * Increment the stored number of total network requests
+ */
 const countRequest = (): void => {
+  // Get current count from storage
   chrome.storage.local.get(WEB_REQUEST_COUNT_KEY, (items) => {
+    // Increment count from storage and save back to storage
     const currCount = items[WEB_REQUEST_COUNT_KEY] ?? 0;
     chrome.storage.local.set({ [WEB_REQUEST_COUNT_KEY]: currCount + 1 });
   });
 };
 
-export interface WebRequestHost {
-  requestCount: number;
-}
-
-export interface WebRequestHosts {
-  [host: string]: WebRequestHost;
-}
-
-export const WEB_REQUEST_HOSTS_KEY = 'webRequests.hosts';
-
+/**
+ * Increment the stored number of network requests by the given URL's host
+ */
 const countHostRequest = (url: URL): void => {
+  // Get current count from storage for given host
   chrome.storage.local.get(WEB_REQUEST_HOSTS_KEY, (items) => {
+    // Increment count from storage for given host and save back to storage
     const currentHosts: WebRequestHosts = items[WEB_REQUEST_HOSTS_KEY] ?? {};
     const currentHost = currentHosts[url.hostname] ?? { requestCount: 0 };
     chrome.storage.local.set({
@@ -38,22 +49,13 @@ const countHostRequest = (url: URL): void => {
   });
 };
 
-export interface WebRequestInitiatorDestination {
-  requestCount: number;
-}
-
-export interface WebRequestInitiator {
-  [destination: string]: WebRequestInitiatorDestination;
-}
-
-export interface WebRequestInitiators {
-  [initiator: string]: WebRequestInitiator;
-}
-
-export const WEB_REQUEST_INITIATORS_KEY = 'webRequests.initiators';
-
+/**
+ * Increment the stored number of network requests between the hosts of the given URL's
+ */
 const countInitiatorRequest = (initiatorUrl: URL, destinationUrl: URL): void => {
+  // Get current count from storage for given host-initiator combo
   chrome.storage.local.get(WEB_REQUEST_INITIATORS_KEY, (items) => {
+    // Increment count from storage for given host-initiator combo and save back to storage
     const currentInitiators: WebRequestInitiators = items[WEB_REQUEST_INITIATORS_KEY] ?? {};
     const currentInitiator = currentInitiators[initiatorUrl.hostname] ?? {};
     const currentInitiatorDestination = currentInitiator[destinationUrl.hostname] ?? { requestCount: 0 };
@@ -71,20 +73,13 @@ const countInitiatorRequest = (initiatorUrl: URL, destinationUrl: URL): void => 
   });
 };
 
-export const WEB_REQUEST_WARNINGS_KEY = 'webRequests.warnings';
-
-interface WebRequestWarning {
-  content: {
-    body: string;
-  };
-}
-
-export interface WebRequestWarnings {
-  [tabId: number]: WebRequestWarning[];
-}
-
+/**
+ * Add detected web request warning to storage for the given tab
+ */
 const addWarning = (tabId: number, warning: WebRequestWarning): void => {
+  // Get existing warnings from storage
   chrome.storage.local.get(WEB_REQUEST_WARNINGS_KEY, (items) => {
+    // Add given warning to given tab and save back to storage
     const existingWebRequestWarnings: WebRequestWarnings = items[WEB_REQUEST_WARNINGS_KEY] ?? {};
     const existingWebRequestHostWarnings = existingWebRequestWarnings[tabId] ?? [];
     chrome.storage.local.set({
@@ -96,33 +91,34 @@ const addWarning = (tabId: number, warning: WebRequestWarning): void => {
   });
 };
 
-export const matchesList = (list: string[], test: string): boolean => {
-  return !!list.find((listItem) => {
-    if (listItem.startsWith('/') && listItem.endsWith('/')) {
-      const regExp = new RegExp(listItem);
-      return regExp.exec(test);
-    }
-
-    return test.includes(listItem);
-  });
-};
-
-const checkAgainstBlacklist = (
+/**
+ * Check the given web request information against the user's set host lists
+ * Adds a warning to storage upon violation
+ */
+const checkAgainstHostLists = (
   initiatorUrl: URL,
   destinationUrl: URL,
   details: chrome.webRequest.WebRequestBodyDetails
 ): void => {
+  // Get the users list of blocked hosts
   chrome.storage.local.get(WEB_REQUEST_BLOCK_LIST_KEY, (items) => {
     const blockList: string[] = items[WEB_REQUEST_BLOCK_LIST_KEY] ?? DEFAULT_BLOCK_LIST;
+    // Combine the hardcoded list of hosts with the user's list
     const fullBlockList = [...blockList, ...HARDCODED_BLOCK_LIST];
+
+    // Check for a match on the block list
     const blockListMatch = matchesList(fullBlockList, destinationUrl.toString());
     if (!blockListMatch) return;
 
+    // Block list match found, check user's allow list before adding warning
     chrome.storage.local.get(WEB_REQUEST_ALLOW_LIST_KEY, (items) => {
       const allowList: string[] = items[WEB_REQUEST_ALLOW_LIST_KEY] ?? DEFAULT_ALLOW_LIST;
+
+      // Check for a match on the allow list
       const allowListMatch = matchesList(allowList, initiatorUrl.toString());
       if (allowListMatch) return;
 
+      // Block list match found, no allow list match found, add warning to storage
       addWarning(details.tabId, {
         content: {
           body: `Outbound network request sent to ${destinationUrl.host}`,
@@ -132,7 +128,13 @@ const checkAgainstBlacklist = (
   });
 };
 
+/** Allow GET and HEAD to avoid false positives in requests for images/fonts/etc. */
 const ALLOWED_INSECURE_METHODS = ['GET', 'HEAD'];
+
+/**
+ * Check for a mismatch in protocol across either end of a network request
+ * Adds a warning to storage upon violation
+ */
 const checkForInsecurePost = (
   initiatorUrl: URL,
   destinationUrl: URL,
@@ -140,9 +142,14 @@ const checkForInsecurePost = (
 ): void => {
   const initiatorSecure = initiatorUrl.protocol === 'https:';
   const destinationSecure = destinationUrl.protocol === 'https:';
+
+  // Check for mismatch
   if (initiatorSecure === destinationSecure) return;
+
+  // Check for allowed method in case of mismatch
   if (ALLOWED_INSECURE_METHODS.includes(details.method)) return;
 
+  // Add warning for mismatch
   addWarning(details.tabId, {
     content: {
       body: `Mismatch in network protocols making a ${details.method} request to ${destinationUrl.host}`,
@@ -150,16 +157,23 @@ const checkForInsecurePost = (
   });
 };
 
+/**
+ * Entrypoint for all web request analysis aimed at identifying any potential warnings for the user
+ */
 const checkForWarnings = (
   initiatorUrl: URL,
   destinationUrl: URL,
   details: chrome.webRequest.WebRequestBodyDetails
 ): void => {
-  checkAgainstBlacklist(initiatorUrl, destinationUrl, details);
+  checkAgainstHostLists(initiatorUrl, destinationUrl, details);
   checkForInsecurePost(initiatorUrl, destinationUrl, details);
 };
 
+/**
+ * General entrypoint to this script
+ */
 export const monitorWebRequest = (): void => {
+  // Add listener that captures all network requests before they are sent over the wire, for all URLs
   chrome.webRequest.onBeforeRequest.addListener(
     (details) => {
       const url = new URL(details.url);

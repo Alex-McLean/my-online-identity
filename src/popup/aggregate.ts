@@ -1,4 +1,4 @@
-import { WEB_REQUEST_INITIATORS_KEY, WebRequestInitiators } from '../background/webRequest';
+import { WEB_REQUEST_INITIATORS_KEY, WebRequestInitiators } from '../background/storage';
 
 const SAD_INFO_LINE_CLASS = 'sad-info-paragraph';
 
