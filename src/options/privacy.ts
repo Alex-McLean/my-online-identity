@@ -75,6 +75,26 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     privacySettingDetailsBody.innerText = args.details;
     privacySettingDetails.appendChild(privacySettingDetailsBody);
 
+    const privacySettingEnableHeading = document.createElement('div');
+    privacySettingEnableHeading.className = 'privacy-setting-reasons-heading';
+    privacySettingEnableHeading.innerText = 'Why Enable?';
+    privacySettingDetails.appendChild(privacySettingEnableHeading);
+
+    const privacySettingEnableReasons = document.createElement('div');
+    privacySettingEnableReasons.className = 'privacy-setting-reasons';
+    privacySettingEnableReasons.innerText = args.enableReasons;
+    privacySettingDetails.appendChild(privacySettingEnableReasons);
+
+    const privacySettingDisableHeading = document.createElement('div');
+    privacySettingDisableHeading.className = 'privacy-setting-reasons-heading';
+    privacySettingDisableHeading.innerText = 'Why Disable?';
+    privacySettingDetails.appendChild(privacySettingDisableHeading);
+
+    const privacySettingDisableReasons = document.createElement('div');
+    privacySettingDisableReasons.className = 'privacy-setting-reasons';
+    privacySettingDisableReasons.innerText = args.disableReasons;
+    privacySettingDetails.appendChild(privacySettingDisableReasons);
+
     privacySettingDiv.appendChild(privacySettingDetails);
 
     privacyDiv.appendChild(privacySettingDiv);
