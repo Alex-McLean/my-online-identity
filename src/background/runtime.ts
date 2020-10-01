@@ -1,4 +1,5 @@
-import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST } from './defaultSettings';
+import { SETTINGS_THEME_KEY } from '../options/settings';
+import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST, DEFAULT_THEME } from './defaultSettings';
 import {
   WEB_REQUEST_ALLOW_LIST_KEY,
   WEB_REQUEST_BLOCK_LIST_KEY,
@@ -32,4 +33,6 @@ export const monitorRuntime = (): void => {
   chrome.storage.local.set({ [WEB_REQUEST_BLOCK_LIST_KEY]: DEFAULT_BLOCK_LIST });
 
   chrome.storage.local.set({ [WEB_REQUEST_WARNINGS_KEY]: {} });
+
+  chrome.storage.local.set({ [SETTINGS_THEME_KEY]: DEFAULT_THEME });
 };

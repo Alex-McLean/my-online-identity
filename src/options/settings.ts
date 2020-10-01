@@ -1,5 +1,44 @@
-import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST, HARDCODED_BLOCK_LIST } from '../background/defaultSettings';
+import {
+  DEFAULT_ALLOW_LIST,
+  DEFAULT_BLOCK_LIST,
+  DEFAULT_THEME,
+  HARDCODED_BLOCK_LIST,
+  THEMES,
+} from '../background/defaultSettings';
 import { WEB_REQUEST_ALLOW_LIST_KEY, WEB_REQUEST_BLOCK_LIST_KEY } from '../background/webRequest';
+
+export const SETTINGS_THEME_KEY = 'settings.theme';
+
+const constructThemeSettings = (): void => {
+  chrome.storage.local.get(SETTINGS_THEME_KEY, (items) => {
+    const theme = items[SETTINGS_THEME_KEY] ?? DEFAULT_THEME;
+    const themeSettingsContainer = document.getElementById('theme-settings');
+
+    if (!themeSettingsContainer) return;
+
+    const themeSelect = document.createElement('select');
+    themeSelect.onchange = (e: Event): void => {
+      const target = e.currentTarget;
+      if (!target) return;
+      const selectedTheme = (target as HTMLSelectElement).value;
+      chrome.storage.local.set({ [SETTINGS_THEME_KEY]: selectedTheme }, () => {
+        const body = document.getElementById('body');
+        if (!body) return;
+        body.className = selectedTheme;
+      });
+    };
+    THEMES.forEach((themeOption) => {
+      const optionElement = document.createElement('option');
+      optionElement.value = themeOption;
+      optionElement.innerText = themeOption;
+      optionElement.className = 'theme-option';
+      themeSelect.appendChild(optionElement);
+    });
+    themeSelect.value = theme;
+    themeSelect.className = 'theme-select';
+    themeSettingsContainer.appendChild(themeSelect);
+  });
+};
 
 interface SettingsList {
   storageKey: string;
@@ -61,4 +100,6 @@ export const constructSettings = (): void => {
 
   constructHardcodedBlockList();
   SETTINGS_LISTS.forEach((list) => constructList(list));
+
+  constructThemeSettings();
 };

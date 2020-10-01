@@ -8,7 +8,7 @@
 
 /* LAYOUT */
 #header {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid;
 }
 
 #header-title {
@@ -26,7 +26,7 @@
 
 /* NAV */
 #nav {
-  border-right: 1px solid black;
+  border-right: 1px solid;
   flex: 1;
   flex-grow: 1;
 }
@@ -35,10 +35,6 @@
   font-size: 20px;
   padding: 20px 10px;
   cursor: pointer;
-}
-
-#nav > .nav-item.active-nav-item {
-  color: blue;
 }
 
 /* MAIN CONTENT */
@@ -81,7 +77,7 @@
 .privacy-setting {
   margin: 20px 0;
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid;
 }
 
 .privacy-setting-header {
@@ -136,7 +132,7 @@
 .extension-list-item {
   margin: 20px 0;
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid;
   cursor: pointer;
 }
 
@@ -169,7 +165,7 @@
 
 #extension-details-back-button {
   cursor: pointer;
-  border: 1px solid black;
+  border: 1px solid;
   border-radius: 20px;
   height: 20px;
   width: 20px;
@@ -247,4 +243,162 @@
 
 #settings-actions > button {
   min-width: 150px;
+}
+
+#theme-settings {
+  padding: 20px;
+}
+
+#theme-settings-header {
+  font-size: 16px;
+}
+
+.theme-select {
+  min-width: 150px;
+  margin: 10px 0;
+  text-transform: capitalize;
+}
+
+.theme-option {
+  text-transform: capitalize;
+}
+
+/* THEMES */
+/* LIGHT */
+.light {
+  background-color: white;
+}
+
+.light #header {
+  border-bottom-color: black;
+}
+
+.light #nav {
+  border-right-color: black;
+}
+
+.light #nav > .nav-item.active-nav-item {
+  color: blue;
+}
+
+.light .privacy-setting {
+  border-color: black;
+}
+
+.light .extension-list-item {
+  border-color: black;
+}
+
+.light #extension-details-back-button {
+  border-color: black;
+}
+
+.light .extension-details-permission {
+  border-color: black;
+}
+
+/* DARK */
+.dark {
+  background-color: #404552;
+  color: white;
+}
+
+.dark #header {
+  border-bottom-color: white;
+}
+
+.dark #nav {
+  border-right-color: white;
+}
+
+.dark #nav > .nav-item.active-nav-item {
+  color: red;
+}
+
+.dark .privacy-setting {
+  border-color: white;
+}
+
+.dark .extension-list-item {
+  border-color: white;
+}
+
+.dark #extension-details-back-button {
+  border-color: white;
+}
+
+.dark .extension-details-permission {
+  border-color: white;
+}
+
+.dark button {
+  background-color: #404552;
+  color: white;
+}
+
+.dark select {
+  background-color: white;
+}
+
+.dark textarea {
+  background-color: white;
+  color: #404552;
+  border-color: #404552;
+}
+
+.dark textarea {
+  outline-color: #404552;
+}
+
+/* HULKAMANIA */
+.hulkamania {
+  background-color: yellow;
+  color: red;
+}
+
+.hulkamania #header {
+  border-bottom-color: red;
+}
+
+.hulkamania #nav {
+  border-right-color: red;
+}
+
+.hulkamania #nav > .nav-item.active-nav-item {
+  color: black;
+}
+
+.hulkamania .privacy-setting {
+  border-color: red;
+}
+
+.hulkamania .extension-list-item {
+  border-color: red;
+}
+
+.hulkamania #extension-details-back-button {
+  border-color: red;
+}
+
+.hulkamania .extension-details-permission {
+  border-color: red;
+}
+
+.hulkamania button {
+  background-color: red;
+  color: yellow;
+}
+
+.hulkamania select {
+  background-color: yellow;
+}
+
+.hulkamania textarea {
+  background-color: yellow;
+  color: red;
+  border-color: red;
+}
+
+.hulkamania textarea {
+  outline-color: red;
 }
