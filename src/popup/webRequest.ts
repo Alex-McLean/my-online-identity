@@ -1,55 +1,10 @@
 import { DEFAULT_ALLOW_LIST } from '../background/defaultSettings';
 import {
-  WEB_REQUEST_INITIATORS_KEY,
-  WebRequestInitiatorDestination,
-  WebRequestInitiators,
   WEB_REQUEST_WARNINGS_KEY,
   WebRequestWarnings,
   WEB_REQUEST_ALLOW_LIST_KEY,
   matchesList,
 } from '../background/webRequest';
-
-const sortDestinations = (
-  [aDestinationName, aDestination]: [string, WebRequestInitiatorDestination],
-  [bDestinationName, bDestinations]: [string, WebRequestInitiatorDestination]
-): number => {
-  if (aDestination.requestCount === bDestinations.requestCount) {
-    return aDestinationName.localeCompare(bDestinationName);
-  }
-  return aDestination.requestCount > bDestinations.requestCount ? -1 : 1;
-};
-
-const createDestinationParagraph = ([destinationName, destination]: [
-  string,
-  WebRequestInitiatorDestination
-]): HTMLParagraphElement => {
-  const destinationParagraph = document.createElement('p');
-  destinationParagraph.innerText = `${destinationName}: ${destination.requestCount}`;
-  return destinationParagraph;
-};
-
-const createDestinationParagraphs = (initiator: string): void => {
-  const webRequestContentDiv = document.getElementById('webRequestContent');
-  if (!webRequestContentDiv) return;
-
-  chrome.storage.local.get(WEB_REQUEST_INITIATORS_KEY, (items) => {
-    const currentInitiators: WebRequestInitiators = items[WEB_REQUEST_INITIATORS_KEY] ?? {};
-    const currentInitiator = currentInitiators[initiator] ?? {};
-
-    Object.entries(currentInitiator)
-      .sort(sortDestinations)
-      .forEach((initiator) => {
-        const destinationParagraph = createDestinationParagraph(initiator);
-        webRequestContentDiv.appendChild(destinationParagraph);
-      });
-  });
-};
-
-const updateWebRequestHeader = (initiator: string): void => {
-  const webRequestHeader = document.getElementById('webRequestHeader');
-  if (!webRequestHeader) return;
-  webRequestHeader.innerText = `Outbound requests from ${initiator}`;
-};
 
 const updateTrustHeader = (tabId: number, initiator: string): void => {
   const trustHeader = document.getElementById('trustHeader');
@@ -90,7 +45,5 @@ export const constructWebRequest = (): void => {
     const url = new URL(activeTab.url);
 
     updateTrustHeader(activeTab.id, url.hostname);
-    updateWebRequestHeader(url.hostname);
-    createDestinationParagraphs(url.hostname);
   });
 };

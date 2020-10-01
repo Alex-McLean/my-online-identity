@@ -18,8 +18,7 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   background: {
     title: 'Background',
-    description:
-      'The Background permission allows an extension to change the background of ChromeOS devices only.',
+    description: 'The Background permission allows an extension to change the background of ChromeOS devices only.',
   },
   bookmarks: {
     title: 'Bookmarks',
@@ -39,12 +38,12 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   clipboardRead: {
     title: 'Clipboard Read',
     description:
-      'Clipboard Read allows an extension to get access to the current text stored on your device\'s clipboard. This is required to allow ‘copy and paste’ to work.',
+      "Clipboard Read allows an extension to get access to the current text stored on your device's clipboard. This is required to allow 'copy and paste' to work.",
   },
   clipboardWrite: {
     title: 'Clipboard Write',
     description:
-      'Clipboard write allows an extension to get access to the device’s clipboard to store text. This is required to allow ‘copy and paste’ to work.',
+      "Clipboard write allows an extension to get access to the device's clipboard to store text. This is required to allow 'copy and paste' to work.",
   },
   contentSettings: {
     title: 'Content Settings',
@@ -54,12 +53,12 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   contextMenus: {
     title: 'Context Menus',
     description:
-      'Context Menus gives permission to an extension to modify the contents of Chrome’s context menu. This may be useful for an extension that looks to add functionality to Google Chrome.',
+      "Context Menus gives permission to an extension to modify the contents of Chrome's context menu. This may be useful for an extension that looks to add functionality to Google Chrome.",
   },
   cookies: {
     title: 'Cookies',
     description:
-      'Cookies permission allows an extension to access and modify information stored by itself and other webpages on your browser. Cookies can help store useful information to improve application’s experiences however can also be used to target ads towards you through your cookie history.',
+      "Cookies permission allows an extension to access and modify information stored by itself and other webpages on your browser. Cookies can help store useful information to improve application's experiences however can also be used to target ads towards you through your cookie history.",
   },
   debugger: {
     title: 'Debugger',
@@ -89,22 +88,20 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   desktopCapture: {
     title: 'Desktop Capture',
     description:
-      'Desktop Capure allows an application the ability to take a photo of the user’s entire screen, individual window or tabs. A screen recorder extension may use this feature to record a specific tab.',
+      "Desktop Capure allows an application the ability to take a photo of the user's entire screen, individual window or tabs. A screen recorder extension may use this feature to record a specific tab.",
   },
   devtools: {
     title: 'DevTools',
-    description:
-      'Devtools allows an extension access to Chrome’s builtin developer tools.',
+    description: "Devtools allows an extension access to Chrome's builtin developer tools.",
   },
   displaySource: {
     title: 'Display Source',
-    description:
-      'Display Source gives an application access to the source IP address of a webpage.',
+    description: 'Display Source gives an application access to the source IP address of a webpage.',
   },
   dns: {
     title: 'DNS',
     description:
-      'DNS gives an application access to the address of the DNS address server being used by the user’s computer.',
+      "DNS gives an application access to the address of the DNS address server being used by the user's computer.",
   },
   documentScan: {
     title: 'Document Scan',
@@ -114,7 +111,7 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   downloads: {
     title: 'Downloads',
     description:
-      'Download permission gives an application permission to download content to a user’s device. Download may be used by a document cloud application that may require you to download stored files.',
+      "Download permission gives an application permission to download content to a user's device. Download may be used by a document cloud application that may require you to download stored files.",
   },
   'enterprise.deviceAttributes': {
     title: 'Enterprise: Device Attributes',
@@ -138,8 +135,7 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   experimental: {
     title: 'Experimental',
-    description:
-      'Experimental permission allows an application to run in an experimental mode.',
+    description: 'Experimental permission allows an application to run in an experimental mode.',
   },
   fileBrowserHandler: {
     title: 'File Browser Handler',
@@ -154,22 +150,22 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   fontSettings: {
     title: 'Font Settings',
     description:
-      'Font Settings permission allows an application to manage Chrome’s font settings. This may be used by a theme to manipulate the standard font used by Chrome.',
+      "Font Settings permission allows an application to manage Chrome's font settings. This may be used by a theme to manipulate the standard font used by Chrome.",
   },
   gcm: {
     title: 'GCM',
     description:
-      'GCM, or Google Cloud Messaging Service, allows an application to send or receive messages through Google’s messaging service.',
+      "GCM, or Google Cloud Messaging Service, allows an application to send or receive messages through Google's messaging service.",
   },
   geolocation: {
     title: 'Geolocation',
     description:
-      'Geolocation permission allows an application to have access to the browser\'s current geolocation. A geo location is a location predicted based off the network you are connected to. This could be used by mapping services that may use your geo location to pinpoint you on a map.',
+      "Geolocation permission allows an application to have access to the browser's current geolocation. A geo location is a location predicted based off the network you are connected to. This could be used by mapping services that may use your geo location to pinpoint you on a map.",
   },
   history: {
     title: 'History',
     description:
-      'The history permission allows an application to have access to the user’s browsing history. This could be used by an analytics tool that is aiming to better understand the user.',
+      "The history permission allows an application to have access to the user's browsing history. This could be used by an analytics tool that is aiming to better understand the user.",
   },
   identity: {
     title: 'Identity',
@@ -183,8 +179,7 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   idltest: {
     title: 'IDL Test',
-    description:
-      'IDL Test permission allows an application to test the web IDL.',
+    description: 'IDL Test permission allows an application to test the web IDL.',
   },
   login: {
     title: 'Login',
@@ -193,8 +188,7 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   loginScreenStorage: {
     title: 'Login Screen Storage',
-    description:
-      'Login Screen Storage permission allows applications to store login details.',
+    description: 'Login Screen Storage permission allows applications to store login details.',
   },
   loginState: {
     title: 'Login State',
@@ -209,7 +203,7 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   mdns: {
     title: 'mDNS',
     description:
-      'mDNS gives an application access to the address of the DNS server being used by the user’s computer on a small network.',
+      "mDNS gives an application access to the address of the DNS server being used by the user's computer on a small network.",
   },
   nativeMessaging: {
     title: 'Native Messaging',
@@ -228,8 +222,7 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   pageCapture: {
     title: 'Page Capture',
-    description:
-      'Page Capture permission allows an application to save a tab as a MHTML.',
+    description: 'Page Capture permission allows an application to save a tab as a MHTML.',
   },
   platformKeys: {
     title: 'Platform Keys',
@@ -239,7 +232,7 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   power: {
     title: 'Power',
     description:
-      'Power permission allows an application to override the system’s power management feature. This could be used by extension aiming to save battery to IDLE the system after a certain amount of time.',
+      "Power permission allows an application to override the system's power management feature. This could be used by extension aiming to save battery to IDLE the system after a certain amount of time.",
   },
   printerProvider: {
     title: 'Printer Provider',
@@ -258,18 +251,15 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   privacy: {
     title: 'Privacy',
-    description:
-      'Privacy permission allows an application to retrieve and modify current privacy permissions.',
+    description: 'Privacy permission allows an application to retrieve and modify current privacy permissions.',
   },
   processes: {
     title: 'Processes',
-    description:
-      'Processes permission allows an application to interact with the browser\'s processes',
+    description: "Processes permission allows an application to interact with the browser's processes",
   },
   proxy: {
     title: 'Proxy',
-    description:
-      'Proxy permission allows an application to manage Chrome’s proxy settings.',
+    description: "Proxy permission allows an application to manage Chrome's proxy settings.",
   },
   sessions: {
     title: 'Sessions',
@@ -279,7 +269,7 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   signedInDevices: {
     title: 'Signed In Devices',
     description:
-      'Signed in Devices permission allows an application to retrieve a list of devices that are currently logged in with the same Google Chrome account. This could be used by an application to share information across all of the user’s devices.',
+      "Signed in Devices permission allows an application to retrieve a list of devices that are currently logged in with the same Google Chrome account. This could be used by an application to share information across all of the user's devices.",
   },
   storage: {
     title: 'Storage',
@@ -288,18 +278,15 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   'system.cpu': {
     title: 'System: CPU',
-    description:
-      'System CPU permission allows an application to retrieve the CPU metadata from the system.',
+    description: 'System CPU permission allows an application to retrieve the CPU metadata from the system.',
   },
   'system.display': {
     title: 'System: Display',
-    description:
-      'System Display permission allows an application to query display metadata.',
+    description: 'System Display permission allows an application to query display metadata.',
   },
   'system.memory': {
     title: 'System: Memory',
-    description:
-      'System Memory permission allows an application to get physical memory information.',
+    description: 'System Memory permission allows an application to get physical memory information.',
   },
   'system.storage': {
     title: 'System: Storage',
@@ -308,8 +295,7 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   tabCapture: {
     title: 'Tab Capture',
-    description:
-      'Tab Capture permission allows an application to interact with tab media streams.',
+    description: 'Tab Capture permission allows an application to interact with tab media streams.',
   },
   tabs: {
     title: 'Tabs',
@@ -323,13 +309,11 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   tts: {
     title: 'TTS',
-    description:
-      'The Text to Speech permission allows for Google Chrome’s TTS to be run.',
+    description: "The Text to Speech permission allows for Google Chrome's TTS to be run.",
   },
   ttsEngine: {
     title: 'TTS Engine',
-    description:
-      'The Text to Speech permission allows an application to turn a group of text into audio.',
+    description: 'The Text to Speech permission allows an application to turn a group of text into audio.',
   },
   unlimitedStorage: {
     title: 'Unlimited Storage',
@@ -338,13 +322,12 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   vpnProvider: {
     title: 'VPN Provider',
-    description:
-      'VPN Provider allows an application to implement a VPN client.',
+    description: 'VPN Provider allows an application to implement a VPN client.',
   },
   wallpaper: {
     title: 'Wallpaper',
     description:
-      'Wallpaper permission allows an application to manage Chrome’s wallpaper. This may be used by a theme to manipulate the standard wallpaper used by Chrome.',
+      "Wallpaper permission allows an application to manage Chrome's wallpaper. This may be used by a theme to manipulate the standard wallpaper used by Chrome.",
   },
   webNavigation: {
     title: 'Web Navigation',
@@ -358,7 +341,6 @@ export const PERMISSION_DETAILS: PermissionDetails = {
   },
   webRequestBlocking: {
     title: 'Web Request Blocking',
-    description:
-      'Web Request blocking permission allows an application to block a web request in real time.',
+    description: 'Web Request blocking permission allows an application to block a web request in real time.',
   },
 };
