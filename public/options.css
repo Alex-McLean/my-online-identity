@@ -121,17 +121,18 @@
   align-items: center;
 }
 
+.privacy-setting-header-title-container svg {
+  width: 32px;
+  margin-right: 12px;
+  border-radius: 90%;
+  padding: 4px;
+}
+
 .privacy-setting-header-select-container {
   display: flex;
   flex-direction: column;
   align-content: flex-end;
   align-items: flex-end;
-}
-
-.privacy-setting-header-icon {
-  margin-right: 12px;
-  border-radius: 90%;
-  padding: 4px;
 }
 
 .privacy-setting-title {
@@ -446,6 +447,10 @@
   color: #4087c5;
 }
 
+.light .colored-path {
+  fill: black;
+}
+
 /* DARK */
 .dark {
   background-color: #404552;
@@ -485,4 +490,8 @@
 
 .dark .extension-list-item {
   background-color: #363a46;
+}
+
+.dark .colored-path {
+  fill: white;
 }

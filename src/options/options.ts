@@ -21,7 +21,7 @@ chrome.storage.local.get(SETTINGS_THEME_KEY, (items) => {
 
   // Construct UI components
   constructNav();
-  constructPrivacy(theme);
+  constructPrivacy();
   constructExtensions();
   constructSettings();
 });
