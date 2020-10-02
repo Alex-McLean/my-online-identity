@@ -75,7 +75,7 @@ const constructHardcodedBlockList = (): void => {
   if (!hardcodedBlockListDiv) return;
 
   HARDCODED_BLOCK_LIST.forEach((block) => {
-    const blockListItem = document.createElement('div');
+    const blockListItem = document.createElement('code');
     blockListItem.className = 'settings-list-hardcoded-item';
     blockListItem.innerText = block;
     hardcodedBlockListDiv.appendChild(blockListItem);
@@ -104,6 +104,7 @@ const constructSaveButton = (): void => {
   // Save each list onclick
   saveButton.onclick = (): void => {
     SETTINGS_LISTS.forEach((list) => void saveList(list));
+    alert('Settings Saved');
   };
 };
 

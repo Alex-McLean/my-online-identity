@@ -121,10 +121,15 @@
   align-items: center;
 }
 
+.privacy-setting-header-select-container {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+  align-items: flex-end;
+}
+
 .privacy-setting-header-icon {
   margin-right: 12px;
-  opacity: 0.7;
-  background-color: #e9e9e9;
   border-radius: 90%;
   padding: 4px;
 }
@@ -136,12 +141,12 @@
 }
 
 .privacy-setting-select {
-  flex-shrink: 1;
-  min-width: 150px;
+  min-width: 164px;
   cursor: pointer;
   border: 2px solid #4087c5;
   border-radius: 4px;
   padding: 8px;
+  margin-bottom: 3px;
 }
 
 .privacy-setting-details-recommendation {
@@ -297,8 +302,6 @@
 /* SETTINGS */
 #settings-header {
   padding: 20px;
-  font-size: 20px;
-  font-weight: bold;
 }
 
 #settings-lists {
@@ -310,7 +313,41 @@
 }
 
 .settings-list-header {
-  font-size: 16px;
+  font-size: 16pt;
+  font-weight: bold;
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  align-content: center;
+  align-items: center;
+}
+
+#settings-list-container {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+}
+
+#settings-list-container:hover #settings-list-description-popup {
+  display: block;
+}
+
+#settings-list-description-popup {
+  top: -128px;
+  left: 32px;
+  position: absolute;
+  display: none;
+  background-color: #ffffff;
+  color: #383838;
+  border: 1px solid #ececec;
+  padding: 16px 32px;
+  box-shadow: 0 0 15px -7px rgba(0, 0, 0, 0.2);
+  width: 500px;
+}
+
+.settings-list-description {
+  font-size: 12pt;
+  font-weight: normal;
 }
 
 .settings-list-container > textarea {
@@ -319,14 +356,29 @@
 
 #settings-list-hardcoded {
   margin: 10px 0;
+  font-size: 12pt;
+  margin-bottom: 20px;
 }
 
 #settings-actions {
   padding: 20px;
 }
 
-#settings-actions > button {
-  min-width: 150px;
+#settings-actions-save-button {
+  background: none;
+  border: none;
+  margin: 0;
+  background-color: #5187c0;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 8px 32px;
+  font-size: 13pt;
+}
+
+#settings-actions-save-button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px -3px rgba(0, 0, 0, 0.2);
+  background-color: #84b6f2;
 }
 
 #theme-settings {
@@ -338,9 +390,13 @@
 }
 
 .theme-select {
-  min-width: 150px;
-  margin: 10px 0;
-  text-transform: capitalize;
+  margin-top: 16px;
+  min-width: 256px;
+  cursor: pointer;
+  border: 2px solid #4087c5;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 3px;
 }
 
 .theme-option {
@@ -348,7 +404,7 @@
 }
 
 .light .font-dark {
-  color: #383838;
+  color: #242424;
 }
 
 .dark .font-dark {
@@ -356,7 +412,7 @@
 }
 
 .light .font-medium {
-  color: #505050;
+  color: #282828;
 }
 
 .dark .font-medium {
@@ -364,7 +420,7 @@
 }
 
 .light .font-light {
-  color: #757575;
+  color: #383838;
 }
 
 .dark .font-light {

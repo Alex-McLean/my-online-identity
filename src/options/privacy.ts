@@ -75,6 +75,7 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
 
     // Create a container for the select element and recommendation text
     const privacySettingSelectContainer = document.createElement('div');
+    privacySettingSelectContainer.className = 'privacy-setting-header-select-container';
 
     // Create the privacy setting select element and add to header
     const privacySettingSelect = document.createElement('select');
@@ -114,7 +115,7 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     privacySettingRecommendation.className = `privacy-setting-details-recommendation ${
       isRecommendedValueSelected ? 'ok' : 'warn'
     }`;
-    privacySettingRecommendation.innerText = `We recommend ${
+    privacySettingRecommendation.innerText = `Recommended: ${
       args.recommended ? args.strings.trueText : args.strings.falseText
     }`;
     privacySettingSelectContainer.appendChild(privacySettingRecommendation);

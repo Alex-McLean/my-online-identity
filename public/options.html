@@ -85,27 +85,56 @@
           </div>
 
           <div id="settings">
-            <div id="settings-header">My Online Identity Settings</div>
+            <div id="settings-header">
+              <div id="settings-title" class="font-dark options-page-title">Settings</div>
+            </div>
 
             <div id="settings-lists">
               <div class="settings-list-container">
-                <div class="settings-list-header">Block</div>
-                <div id="settings-list-hardcoded"></div>
-                <textarea id="settings-block" rows="10"></textarea>
+                <div class="settings-list-header">
+                  Warning List
+
+                  <div id="settings-list-container">
+                    <span id="settings-list-description-popup" class="settings-list-description">
+                      <p>Add the URL of any additional destinations that you want Moi to monitor.</p>
+                      <code>
+                        https://play.google.com/music/listen <br />
+                        https://mail.google.com
+                      </code>
+                      <p>
+                        You can add to this list using the input below. You can specify regex expressions by enclosing
+                        the text in forward slashes:
+                      </p>
+                      <code>/^https:.*google\.com</code>
+                    </span>
+                    <i>
+                      <img src="assets/help-24px.svg" height="16" style="margin-left: 8px; opacity: 0.75" />
+                    </i>
+                  </div>
+                </div>
+                <p class="settings-list-description">
+                  Moi is watching for network activity from your browser to these destinations:
+                </p>
+                <div id="settings-list-hardcoded" class="font-light"></div>
+                <textarea id="settings-block" rows="7"></textarea>
               </div>
 
               <div class="settings-list-container">
-                <div class="settings-list-header">Allow</div>
-                <textarea id="settings-allow" rows="10"></textarea>
+                <div class="settings-list-header">Trusted Sites</div>
+                <p class="settings-list-description">Moi will ignore warnings on these sites:</p>
+
+                <textarea id="settings-allow" rows="7"></textarea>
               </div>
             </div>
 
             <div id="settings-actions">
-              <button id="settings-actions-save-button">SAVE LISTS</button>
+              <button id="settings-actions-save-button">Save Settings</button>
             </div>
 
             <div id="theme-settings">
-              <div id="theme-settings-header">Theme</div>
+              <div id="theme-settings-header">
+                <div class="settings-list-header">Theme</div>
+              </div>
             </div>
           </div>
         </div>
