@@ -185,6 +185,10 @@ h1 {
   color: #383838;
 }
 
+.light .colored-path {
+  fill: black;
+}
+
 /* DARK */
 .dark {
   background-color: #404552;
@@ -205,4 +209,8 @@ h1 {
 
 .dark .call-to-action:hover {
   color: gainsboro;
+}
+
+.dark .colored-path {
+  fill: white;
 }
