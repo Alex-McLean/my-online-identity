@@ -2,7 +2,7 @@
  * Construct all DOM elements for the Settings page of the options interface
  */
 
-import { DEFAULT_THEME, THEMES } from '../background/settingsOptions';
+import { DEFAULT_THEME, THEMES, ThemeValue } from '../background/settingsOptions';
 import { SETTINGS_THEME_KEY } from '../background/storage';
 import { HARDCODED_BLOCK_LIST, SettingsList, SETTINGS_LISTS } from './hostLists';
 
@@ -12,7 +12,7 @@ import { HARDCODED_BLOCK_LIST, SettingsList, SETTINGS_LISTS } from './hostLists'
 const constructThemeSettings = (): void => {
   // Get the current theme settings from storage
   chrome.storage.local.get(SETTINGS_THEME_KEY, (items) => {
-    const theme = items[SETTINGS_THEME_KEY] ?? DEFAULT_THEME;
+    const theme: ThemeValue = items[SETTINGS_THEME_KEY] ?? DEFAULT_THEME;
 
     // Get the container element from the DOM
     const themeSettingsContainer = document.getElementById('theme-settings');
@@ -27,7 +27,7 @@ const constructThemeSettings = (): void => {
     themeSelect.onchange = (e: Event): void => {
       const target = e.currentTarget;
       if (!target) return;
-      const selectedTheme = (target as HTMLSelectElement).value;
+      const selectedTheme = (target as HTMLSelectElement).value as ThemeValue;
 
       // Update the theme settings in storage
       chrome.storage.local.set({ [SETTINGS_THEME_KEY]: selectedTheme }, () => {

@@ -1,3 +1,4 @@
+import { ThemeValue } from '../background/settingsOptions';
 /**
  * Construct all DOM elements for the Browser Privacy page of the options interface
  */
@@ -34,7 +35,7 @@ const createRecommendedSettingsButton = (settings: PrivacyParagraphArgs[]): void
 /**
  * Create a privacy setting element based on the given args
  */
-const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
+const createPrivacySettingDiv = (args: PrivacyParagraphArgs, theme: ThemeValue): void => {
   // Get the user's current value for the setting
   args.setting.get({}, (details) => {
     // Get the parent DOM element
@@ -59,7 +60,7 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     privacySettingTitleContainer.className = 'privacy-setting-header-title-container';
 
     const privacySettingIcon = document.createElement('img');
-    privacySettingIcon.src = args.icon;
+    privacySettingIcon.src = theme === 'light' ? args.lightIcon : args.darkIcon;
     privacySettingIcon.height = 32;
     privacySettingIcon.className = 'privacy-setting-header-icon';
     privacySettingTitleContainer.appendChild(privacySettingIcon);
@@ -167,8 +168,8 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
 /**
  * General entrypoint to this script, creates all registered privacy settings and header
  */
-export const constructPrivacy = (): void => {
+export const constructPrivacy = (theme: ThemeValue): void => {
   createRecommendedSettingsButton(PRIVACY_SETTINGS);
 
-  PRIVACY_SETTINGS.forEach((setting) => void createPrivacySettingDiv(setting));
+  PRIVACY_SETTINGS.forEach((setting) => void createPrivacySettingDiv(setting, theme));
 };
