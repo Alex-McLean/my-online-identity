@@ -43,7 +43,9 @@ export interface WebRequestWarning {
   };
 }
 export interface WebRequestWarnings {
-  [tabId: number]: WebRequestWarning[];
+  [tabId: number]: {
+    [host: string]: WebRequestWarning[];
+  };
 }
 
 /**

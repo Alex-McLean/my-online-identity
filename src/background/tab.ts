@@ -34,7 +34,8 @@ const updateBadge = (tab: chrome.tabs.Tab): void => {
     // Check for any stored warnings for the tab
     chrome.storage.local.get(WEB_REQUEST_WARNINGS_KEY, (items) => {
       const existingWebRequestWarnings: WebRequestWarnings = items[WEB_REQUEST_WARNINGS_KEY] ?? {};
-      const existingWebRequestHostWarnings = tab.id ? existingWebRequestWarnings[tab.id] ?? [] : [];
+      const existingWebRequestTabWarnings = tab.id ? existingWebRequestWarnings[tab.id] ?? {} : {};
+      const existingWebRequestHostWarnings = tab.id ? existingWebRequestTabWarnings[tabUrl.hostname] ?? [] : [];
 
       // Set the extension icon deterministically based on the presence of any warnings for the tab
       chrome.browserAction.setIcon({

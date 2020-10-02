@@ -32,7 +32,8 @@ const updateTrustHeader = (tabId: number, initiator: string): void => {
     // Check for any stored warnings for this tab
     chrome.storage.local.get(WEB_REQUEST_WARNINGS_KEY, (items) => {
       const existingWebRequestWarnings: WebRequestWarnings = items[WEB_REQUEST_WARNINGS_KEY] ?? {};
-      const existingWebRequestHostWarnings = existingWebRequestWarnings[tabId] ?? [];
+      const existingWebRequestTabWarnings = existingWebRequestWarnings[tabId] ?? {};
+      const existingWebRequestHostWarnings = existingWebRequestTabWarnings[initiator] ?? [];
 
       // Update the header style based on existence of any warnings
       trustHeader.className = existingWebRequestHostWarnings.length ? 'red' : 'grey';

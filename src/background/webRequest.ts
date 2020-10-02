@@ -76,16 +76,21 @@ const countInitiatorRequest = (initiatorUrl: URL, destinationUrl: URL): void => 
 /**
  * Add detected web request warning to storage for the given tab
  */
-const addWarning = (tabId: number, warning: WebRequestWarning): void => {
+const addWarning = (tabId: number, host: string, warning: WebRequestWarning): void => {
   // Get existing warnings from storage
   chrome.storage.local.get(WEB_REQUEST_WARNINGS_KEY, (items) => {
     // Add given warning to given tab and save back to storage
     const existingWebRequestWarnings: WebRequestWarnings = items[WEB_REQUEST_WARNINGS_KEY] ?? {};
-    const existingWebRequestHostWarnings = existingWebRequestWarnings[tabId] ?? [];
+    const existingWebRequestTabWarnings = existingWebRequestWarnings[tabId] ?? {};
+    const existingWebRequestHostWarnings = existingWebRequestTabWarnings[host] ?? [];
+
     chrome.storage.local.set({
       [WEB_REQUEST_WARNINGS_KEY]: {
         ...existingWebRequestWarnings,
-        [tabId]: [...existingWebRequestHostWarnings, warning],
+        [tabId]: {
+          ...existingWebRequestTabWarnings,
+          [host]: [...existingWebRequestHostWarnings, warning],
+        },
       },
     });
   });
@@ -119,9 +124,9 @@ const checkAgainstHostLists = (
       if (allowListMatch) return;
 
       // Block list match found, no allow list match found, add warning to storage
-      addWarning(details.tabId, {
+      addWarning(details.tabId, initiatorUrl.hostname, {
         content: {
-          body: `Outbound network request sent to ${destinationUrl.host}`,
+          body: `Outbound network request sent to ${destinationUrl.hostname}`,
         },
       });
     });
@@ -150,9 +155,9 @@ const checkForInsecurePost = (
   if (ALLOWED_INSECURE_METHODS.includes(details.method)) return;
 
   // Add warning for mismatch
-  addWarning(details.tabId, {
+  addWarning(details.tabId, initiatorUrl.hostname, {
     content: {
-      body: `Mismatch in network protocols making a ${details.method} request to ${destinationUrl.host}`,
+      body: `Mismatch in network protocols making a ${details.method} request to ${destinationUrl.hostname}`,
     },
   });
 };
