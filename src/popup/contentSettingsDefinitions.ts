@@ -18,6 +18,26 @@ export const CONTENT_SETTING_DEFINITIONS: ContentSettingParagraphArgs[] = [
       'A cookie is a small piece of data stored locally on your computer made by a website looking to store information. A cookie can be used to hold information, like a shopping cart, for later use. A cookie could be used by third parties to help create a more seamless experience when on the web.\nWhy Enable?: Cookies help large websites store information locally so that loading web pages can happen more quickly. Enabling cookies will allow large websites to work more effectively on your browser.\nWhy Disable?: Disabling cookies may prevent unsafe websites from picking up cookies that may be stored on your device. Advertisers may search for cookies that may exist to try to target ads towards you. If you do not trust this website, consider disabling this function.',
   },
   {
+    contentSetting: chrome.contentSettings.location,
+    label: 'Location',
+    options: ['allow', 'block', 'ask'],
+    description:
+      'Location gives you the user the ability to decide whether a website should have information on your current location. Using the internet connection you are currently connected too to browse the internet, your location can be determined either through geolocation or GPS.\nTo Enable?: Websites may require your location information to improve their websites. For instance, a website may require your location to check the stock of a product at your closest shop relevant to you. \nTo Disable?:Less than honest websites may for instance collect this instance to not be used to improve your experience but to instead target ads specific to your location. Enabling Do Not Track prevents these websites from seeing your location. Disable Location to prevent an untrustworthy website from knowing your location.',
+  },
+  {
+    contentSetting: chrome.contentSettings.camera,
+    label: 'Camera',
+    options: ['allow', 'block', 'ask'],
+    description: '',
+  },
+  {
+    contentSetting: chrome.contentSettings.microphone,
+    label: 'Microphone',
+    options: ['allow', 'block', 'ask'],
+    description:
+      'Microphone permission gives a webpage access to your device’s microphone to record audio.\nWhy Enable?: For some applications online audio is crucial. A video conference requires audio for you the user to be heard by the other members. Speech to text application requires you to hear your voice to deliver on the text you are speaking.\nWhy Disable?: Some untrustworthy sites may be recording your audio without you realising. Applications may use this information to collect important information as you speak near the computer. If you do not trust this website, consider disabling this function.',
+  },
+  {
     contentSetting: chrome.contentSettings.images,
     label: 'Images',
     options: ['allow', 'block'],
@@ -32,13 +52,6 @@ export const CONTENT_SETTING_DEFINITIONS: ContentSettingParagraphArgs[] = [
     hide: true,
     description:
       'JavaScript is a scripting language used to create more interactive web pages. JavaScript is responsible for showing the user everything from customer support messaging through to online gaming.\nWhy Enable?: Most modern websites rely heavily on JavaScript for an interactive experience between the user and the website. Enabling JavaScript keeps websites working effectively. Only enable JavaScript for websites that you trust.\nWhy Disable?: JavaScript is usually the key ingredient in popup advertisements that take away from browsing. Javascript, as powerful as it may be, can be used on phishing websites to collect your information. JavaScript could track your keystrokes and record what you type, track your browsing habits, or could manipulate other parts of your browsing experience. If you do not trust this website, consider disabling this function.',
-  },
-  {
-    contentSetting: chrome.contentSettings.location,
-    label: 'Location',
-    options: ['allow', 'block', 'ask'],
-    description:
-      'Location gives you the user the ability to decide whether a website should have information on your current location. Using the internet connection you are currently connected too to browse the internet, your location can be determined either through geolocation or GPS.\nTo Enable?: Websites may require your location information to improve their websites. For instance, a website may require your location to check the stock of a product at your closest shop relevant to you. \nTo Disable?:Less than honest websites may for instance collect this instance to not be used to improve your experience but to instead target ads specific to your location. Enabling Do Not Track prevents these websites from seeing your location. Disable Location to prevent an untrustworthy website from knowing your location.',
   },
   {
     contentSetting: chrome.contentSettings.plugins,
@@ -63,13 +76,6 @@ export const CONTENT_SETTING_DEFINITIONS: ContentSettingParagraphArgs[] = [
     hide: true,
     description:
       'Notifications allow a webpage, active or idle, to use Chrome’s notification system to grab your attention. Instant messaging websites may use this to notify you the user of a new message.\nWhy Enable?: Notifications are great for catching your attention. For websites that may be important and urgent to visit when an activity is completed on the web page, notifications are a great tool to ensure you don’t miss important events on a website.\nWhy Disable?: Notification can become overwhelming. It is in a lot of web designers best interest to make you spend as much time on their websites. Notifications can be used with bad intentions to draw you in and be distracted from other work. If you do not trust this website, consider disabling this function.',
-  },
-  {
-    contentSetting: chrome.contentSettings.microphone,
-    label: 'Microphone',
-    options: ['allow', 'block', 'ask'],
-    description:
-      'Microphone permission gives a webpage access to your device’s microphone to record audio.\nWhy Enable?: For some applications online audio is crucial. A video conference requires audio for you the user to be heard by the other members. Speech to text application requires you to hear your voice to deliver on the text you are speaking.\nWhy Disable?: Some untrustworthy sites may be recording your audio without you realising. Applications may use this information to collect important information as you speak near the computer. If you do not trust this website, consider disabling this function.',
   },
   {
     contentSetting: chrome.contentSettings.unsandboxedPlugins,
