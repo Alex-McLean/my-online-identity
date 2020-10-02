@@ -24,12 +24,22 @@ const createContentSettingParagraph = (
   args.contentSetting.get({ primaryUrl: url.toString() }, (details) => {
     // Create container element
     const contentSettingContainer = document.createElement('div');
-    contentSettingContainer.className = 'content-setting-description-hidden';
+    contentSettingContainer.className = 'content-setting-item-container content-setting-description-hidden';
     contentSettingContainer.className += args.hide ? ' content-setting-hidden' : '';
 
     // Create inner container for shown content
     const contentSettingParagraph = document.createElement('div');
     contentSettingParagraph.className = 'content-setting-p';
+
+    // Add description of setting, hidden by default
+    const contentSettingDescription = document.createElement('div');
+    contentSettingDescription.className = 'content-setting-description';
+    const contentSettingDescriptionLabel = document.createElement('p');
+    contentSettingDescriptionLabel.innerText = args.label;
+    contentSettingDescription.appendChild(contentSettingDescriptionLabel);
+    const contentSettingDescriptionBody = document.createElement('p');
+    contentSettingDescriptionBody.innerText = args.description;
+    contentSettingDescription.appendChild(contentSettingDescriptionBody);
 
     // Create a read more element that hides and shows further information about the setting
     const contentSettingReadMore = document.createElement('svg');
@@ -49,24 +59,8 @@ const createContentSettingParagraph = (
       />
     </svg>`
     );
-    //   <i>
-    //   <svg
-    //     style="margin-left: 8px; opacity: 0.75; height: 16px"
-    //     xmlns="http://www.w3.org/2000/svg"
-    //     height="24"
-    //     viewBox="0 0 24 24"
-    //     width="24"
-    //   >
-
-    //   </svg>
-    // </i>
+    contentSettingReadMore.appendChild(contentSettingDescription);
     contentSettingReadMore.className = 'content-setting-read-more';
-    contentSettingReadMore.onclick = (): void => {
-      contentSettingContainer.className = contentSettingContainer.className.replace(
-        /content-setting-description-hidden/,
-        ''
-      );
-    };
     contentSettingParagraph.appendChild(contentSettingReadMore);
 
     // Create the main information container for the setting
@@ -115,13 +109,7 @@ const createContentSettingParagraph = (
     // Set select element value based on current setting
     contentSettingSelect.value = details.setting;
 
-    // Add description of setting, hidden by default
-    const contentSettingDescription = document.createElement('div');
-    contentSettingDescription.className = 'content-setting-description';
-    contentSettingDescription.innerText = args.description;
-
     contentSettingContainer.appendChild(contentSettingParagraph);
-    contentSettingContainer.appendChild(contentSettingDescription);
 
     // Insert setting element in correct location
     parentDiv.insertBefore(contentSettingContainer, beforeDiv);
