@@ -54,17 +54,33 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     privacySettingHeader.className = 'privacy-setting-header';
     privacySettingDiv.appendChild(privacySettingHeader);
 
+    // Create a container for the title text and icon
+    const privacySettingTitleContainer = document.createElement('div');
+    privacySettingTitleContainer.className = 'privacy-setting-header-title-container';
+
+    const privacySettingIcon = document.createElement('img');
+    privacySettingIcon.src = args.icon;
+    privacySettingIcon.height = 32;
+    privacySettingIcon.className = 'privacy-setting-header-icon';
+    privacySettingTitleContainer.appendChild(privacySettingIcon);
+
     // Create the title div and add to header
     const privacySettingTitle = document.createElement('div');
     privacySettingTitle.className = 'privacy-setting-title font-medium';
     privacySettingTitle.innerText = args.strings.label;
-    privacySettingHeader.appendChild(privacySettingTitle);
+    privacySettingTitleContainer.appendChild(privacySettingTitle);
+
+    // Add title container to header
+    privacySettingHeader.appendChild(privacySettingTitleContainer);
+
+    // Create a container for the select element and recommendation text
+    const privacySettingSelectContainer = document.createElement('div');
 
     // Create the privacy setting select element and add to header
     const privacySettingSelect = document.createElement('select');
     privacySettingSelect.id = `privacy-setting-select-${args.strings.label.toLocaleLowerCase().replace(/ /g, '-')}`;
     privacySettingSelect.className = `privacy-setting-select ${isRecommendedValueSelected ? 'ok' : 'warn'}`;
-    privacySettingHeader.appendChild(privacySettingSelect);
+    privacySettingSelectContainer.appendChild(privacySettingSelect);
 
     // Set the select element's onchange handler
     privacySettingSelect.onchange = (e: Event): void => {
@@ -93,12 +109,7 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     // Set the default value of the privacy setting select
     privacySettingSelect.value = details.value ? args.strings.trueText : args.strings.falseText;
 
-    // Create privacy setting details div and to container
-    const privacySettingDetails = document.createElement('div');
-    privacySettingDetails.className = 'privacy-setting-details';
-    privacySettingDiv.appendChild(privacySettingDetails);
-
-    // Create privacy setting recommended value and add to details div
+    // Create privacy setting recommended value and add to header div
     const privacySettingRecommendation = document.createElement('div');
     privacySettingRecommendation.className = `privacy-setting-details-recommendation ${
       isRecommendedValueSelected ? 'ok' : 'warn'
@@ -106,7 +117,15 @@ const createPrivacySettingDiv = (args: PrivacyParagraphArgs): void => {
     privacySettingRecommendation.innerText = `We recommend ${
       args.recommended ? args.strings.trueText : args.strings.falseText
     }`;
-    privacySettingDetails.appendChild(privacySettingRecommendation);
+    privacySettingSelectContainer.appendChild(privacySettingRecommendation);
+
+    // Add select container to the header
+    privacySettingHeader.appendChild(privacySettingSelectContainer);
+
+    // Create privacy setting details div and to container
+    const privacySettingDetails = document.createElement('div');
+    privacySettingDetails.className = 'privacy-setting-details';
+    privacySettingDiv.appendChild(privacySettingDetails);
 
     // Create privacy setting details and add to details div
     const privacySettingDetailsBody = document.createElement('div');

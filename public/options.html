@@ -8,7 +8,7 @@
   <body id="body">
     <div id="root">
       <div id="header">
-        <div id="header-title">
+        <div id="header-title" class="font-light">
           <img id="header-title-icon" src="icon/moi128.png" height="32px" width="32px" />
           My Online Identity
         </div>
@@ -33,9 +33,11 @@
 
         <div id="content">
           <div id="privacy" class="active-content">
-            <div id="privacy-header">
-              <div id="privacy-title" class="font-dark">What can my browser share with other websites?</div>
-              <div id="privacy-subtitle">
+            <div id="privacy-header" class="options-page-header">
+              <div id="privacy-title" class="font-dark options-page-title">
+                What can my browser share with other websites?
+              </div>
+              <div id="privacy-subtitle" class="options-page-subtitle">
                 This is your personal insight screen. Find details on the different browser settings that effect
                 behaviour across all websites that you visit. We suggest using the recommended settings if you're not
                 confident with the details of each option.
@@ -46,9 +48,12 @@
 
           <div id="extensions">
             <div id="extensions-list" class="active-extensions-content">
-              <div id="extensions-list-header">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
+              <div id="extensions-list-header" class="options-page-header">
+                <div id="extensions-title" class="font-dark options-page-title">Extensions</div>
+                <div id="extensions-subtitle" class="options-page-subtitle">
+                  View other extensions that you have installed, and see which permissions and content they're
+                  accessing.
+                </div>
               </div>
 
               <div id="extensions-list-body"></div>
@@ -56,22 +61,23 @@
             <div id="extension-details">
               <div id="extension-details-header">
                 <div id="extension-details-back">
-                  <div id="extension-details-back-button">X</div>
+                  <button id="extension-details-back-button" class="font-light">
+                    <img src="assets/chevron_left-24px.svg" height="24px" width="24px" />
+                    Back
+                  </button>
                 </div>
-
-                <div id="extension-details-icon"></div>
-
-                <div id="extension-details-name"></div>
-
+                <div style="display: flex; align-content: center; align-items: center">
+                  <div id="extension-details-icon"></div>
+                  <div id="extension-details-name"></div>
+                </div>
+                <div id="extension-details-description"></div>
                 <div id="extension-details-actions">
-                  <button id="extension-details-uninstall-button">UNINSTALL EXTENSION</button>
+                  <button id="extension-details-uninstall-button">Uninstall Extension</button>
                 </div>
               </div>
 
-              <div id="extension-details-description"></div>
-
               <div id="extension-details-body">
-                <div id="extension-details-body-title">Permissions Accessed</div>
+                <div id="extension-details-body-title" class="font-light">Permissions Accessed:</div>
 
                 <div id="extension-details-body-permissions"></div>
               </div>

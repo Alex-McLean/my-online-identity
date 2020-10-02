@@ -9,6 +9,7 @@ export interface PrivacyParagraphArgs {
     trueText: string;
     falseText: string;
   };
+  icon: string;
   recommended: boolean;
   details: string;
   enableReasons: string;
@@ -22,6 +23,7 @@ export const PRIVACY_SETTINGS: PrivacyParagraphArgs[] = [
       trueText: 'Enabled',
       falseText: 'Disabled',
     },
+    icon: 'assets/location_on-24px.svg',
     recommended: false,
     details:
       'Address Autofill allows your browser to access your most recent information stored on your browser and pass this information on to the web page without you needing to re-enter manually.',
@@ -37,6 +39,7 @@ export const PRIVACY_SETTINGS: PrivacyParagraphArgs[] = [
       trueText: 'Enabled',
       falseText: 'Disabled',
     },
+    icon: 'assets/credit_card-24px.svg',
     recommended: false,
     details:
       'Credit Card Autofill allows your browser to access stored credit card information on your browser and pass this information to the website without you needing to re-enter manually.',
@@ -52,6 +55,7 @@ export const PRIVACY_SETTINGS: PrivacyParagraphArgs[] = [
       trueText: 'Enabled',
       falseText: 'Disabled',
     },
+    icon: 'assets/security-24px.svg',
     recommended: true,
     details:
       "Safe Browsing is a service offered by your browser to intervene if a URL of a website is considered malicious or may be 'phishing' your personal information.",
@@ -67,6 +71,7 @@ export const PRIVACY_SETTINGS: PrivacyParagraphArgs[] = [
       trueText: 'Allowed',
       falseText: 'Blocked',
     },
+    icon: 'assets/cookie.svg',
     recommended: false,
     details:
       'Third Party Cookies is the information left behind and stored on your local machine to be used by a website with a different domain.',
@@ -82,6 +87,7 @@ export const PRIVACY_SETTINGS: PrivacyParagraphArgs[] = [
       trueText: 'Enabled',
       falseText: 'Disabled',
     },
+    icon: 'assets/open_in_new-24px.svg',
     recommended: false,
     details: 'Referrers show the current webpage from which webpage you the user have just come from.',
     enableReasons:
@@ -96,6 +102,7 @@ export const PRIVACY_SETTINGS: PrivacyParagraphArgs[] = [
       trueText: 'Enabled',
       falseText: 'Disabled',
     },
+    icon: 'assets/location_disabled-24px.svg',
     recommended: true,
     details:
       'Do Not Track gives you the user the ability to decide whether a website should have information on your current location. Using the internet connection you are currently connected too to browse the internet, your location can be determined.',
