@@ -132,8 +132,8 @@ const createContentSettingParagraph = (
  * Add element that will expand the content settings to list to show more
  */
 const createContentSettingExpand = (parentDiv: HTMLElement): HTMLParagraphElement => {
-  const viewMoreText = 'View more privacy settings';
-  const viewLessText = 'View less privacy settings';
+  const viewMoreText = '+ More privacy settings';
+  const viewLessText = '- Less privacy settings';
 
   // Create expander element
   const contentSettingExpandParagraph = document.createElement('p');
@@ -168,7 +168,7 @@ const createContentSettingExpand = (parentDiv: HTMLElement): HTMLParagraphElemen
 const updateContentSettingHeader = (): void => {
   const contentSettingHeader = document.getElementById('contentSettingsHeader');
   if (!contentSettingHeader) return;
-  contentSettingHeader.innerText = `You can quickly turn sharing off using these controls`;
+  contentSettingHeader.innerText = `You can fine tune your privacy and content settings for this site`;
 };
 
 /**

@@ -13,13 +13,13 @@ export const createWebRequestsParagraph = (parent: HTMLElement, initiator: strin
 
     const webRequestsParagraph = document.createElement('p');
     webRequestsParagraph.className = SAD_INFO_LINE_CLASS;
-    webRequestsParagraph.innerText = `Made ${total} network requests.`;
+    webRequestsParagraph.innerText = `${total} network requests in total`;
     parent.appendChild(webRequestsParagraph);
 
     const totalDomains = Math.max(Object.values(currentInitiator).length - 1, 0); // Exclude self
     const externalDomainsParagraph = document.createElement('p');
     externalDomainsParagraph.className = SAD_INFO_LINE_CLASS;
-    externalDomainsParagraph.innerText = `Interacted with ${totalDomains} external domains.`;
+    externalDomainsParagraph.innerText = `${totalDomains} requests to exernal sites`;
     parent.appendChild(externalDomainsParagraph);
   });
 };
@@ -29,7 +29,7 @@ export const createCookiesParagraph = (parent: HTMLElement, url: URL): void => {
     const totalCookies = cookies.length;
     const cookiesParagraph = document.createElement('p');
     cookiesParagraph.className = SAD_INFO_LINE_CLASS;
-    cookiesParagraph.innerText = `Stored ${totalCookies} cookies on your device.`;
+    cookiesParagraph.innerText = `${totalCookies} cookies stored`;
     parent.appendChild(cookiesParagraph);
   });
 };
@@ -39,8 +39,9 @@ export const createAggregateContentDiv = (url: URL): HTMLDivElement => {
   aggregateContentDiv.className = 'aggregate-content';
 
   const aggregateHeader = document.createElement('h3');
+  aggregateHeader.id = 'aggregate-header';
   aggregateHeader.className = 'section-heading';
-  aggregateHeader.innerText = `${url.hostname} has allowed the following network and cookie activity`;
+  aggregateHeader.innerHTML = `Recorded activity from all <code>${url.hostname}</code> tabs so far`;
   aggregateContentDiv.appendChild(aggregateHeader);
 
   createWebRequestsParagraph(aggregateContentDiv, url.hostname);

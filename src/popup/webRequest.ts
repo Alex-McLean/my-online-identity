@@ -42,7 +42,7 @@ const updateTrustHeader = (tabId: number, initiator: string): void => {
       const trustHeaderH1 = document.createElement('h1');
       trustHeaderH1.innerText = existingWebRequestHostWarnings.length
         ? 'This site may be breaking your trust'
-        : 'This site is a good Christian boy';
+        : 'This site is behaving normally';
       trustHeader.appendChild(trustHeaderH1);
     });
   });
