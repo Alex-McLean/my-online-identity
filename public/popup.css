@@ -206,25 +206,3 @@ h1 {
 .dark .call-to-action:hover {
   color: gainsboro;
 }
-
-/* HULKAMANIA */
-.hulkamania {
-  background-color: yellow;
-  color: red;
-}
-
-.hulkamania .section-container {
-  border-bottom-color: red;
-}
-
-.hulkamania #trustHeader {
-  border-bottom-color: red;
-}
-
-.hulkamania .content-settings-expand {
-  color: black;
-}
-
-.hulkamania .call-to-action:hover {
-  color: orangered;
-}
