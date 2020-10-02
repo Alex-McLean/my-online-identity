@@ -41,8 +41,8 @@ const constructThemeSettings = (): void => {
     // Add options to the select element for each theme option
     THEMES.forEach((themeOption) => {
       const optionElement = document.createElement('option');
-      optionElement.value = themeOption;
-      optionElement.innerText = themeOption;
+      optionElement.value = themeOption.value;
+      optionElement.innerText = themeOption.label;
       optionElement.className = 'theme-option';
       themeSelect.appendChild(optionElement);
     });

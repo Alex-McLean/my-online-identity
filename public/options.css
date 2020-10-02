@@ -51,15 +51,15 @@
   padding: 12px 0;
   cursor: pointer;
   font-size: 12pt;
-  color: #696969;
 }
 
 #nav-list > .nav-item:hover:not(.active-nav-item) {
   text-decoration: underline;
 }
 
-#nav-list > .nav-item.active-nav-item {
+.nav-item.active-nav-item {
   font-weight: bold;
+  color: #4087c5;
 }
 
 /* MAIN CONTENT */
@@ -416,7 +416,7 @@
 }
 
 .dark .font-medium {
-  color: #cecece;
+  color: #ffffff;
 }
 
 .light .font-light {
@@ -424,7 +424,7 @@
 }
 
 .dark .font-light {
-  color: #ececec;
+  color: #ffffff;
 }
 
 /* THEMES */
@@ -438,7 +438,11 @@
   border-color: #dadada;
 }
 
-.light #nav-list > .nav-item.active-nav-item {
+.light .nav-item {
+  color: #696969;
+}
+
+.light .nav-item.active-nav-item {
   color: #4087c5;
 }
 
@@ -452,7 +456,11 @@
   border-color: #686868;
 }
 
-.dark #nav-list > .nav-item.active-nav-item {
+.dark .nav-item {
+  color: #ffffff;
+}
+
+.dark .nav-item.active-nav-item {
   color: #4087c5;
 }
 
@@ -473,4 +481,8 @@
 
 .dark textarea {
   outline-color: #404552;
+}
+
+.dark .extension-list-item {
+  background-color: #363a46;
 }
