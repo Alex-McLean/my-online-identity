@@ -39,7 +39,7 @@ const updateBadge = (tab: chrome.tabs.Tab): void => {
 
       // Set the extension icon deterministically based on the presence of any warnings for the tab
       chrome.browserAction.setIcon({
-        path: existingWebRequestHostWarnings.length ? 'icon/moi-naughty32.png' : 'icon/moi32.png',
+        path: existingWebRequestHostWarnings.length ? 'icon/alert.png' : 'icon/moi32.png',
         tabId: tab.id,
       });
     });
