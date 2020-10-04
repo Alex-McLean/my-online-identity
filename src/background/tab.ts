@@ -2,7 +2,8 @@
  * Script used to monitor tab activity within the user's browser using the chrome.tabs.* API
  */
 
-import { DEFAULT_ALLOW_LIST, matchesList } from '../options/hostLists';
+import { DEFAULT_ALLOW_LIST } from '../options/hostLists';
+import { matchesRegexList } from '../options/regexLists';
 import { WEB_REQUEST_ALLOW_LIST_KEY, WEB_REQUEST_WARNINGS_KEY, WebRequestWarnings } from './storage';
 
 /**
@@ -21,7 +22,7 @@ const updateBadge = (tab: chrome.tabs.Tab): void => {
     const allowList: string[] = items[WEB_REQUEST_ALLOW_LIST_KEY] ?? DEFAULT_ALLOW_LIST;
 
     // Check for a match on the allow list
-    const allowListMatch = matchesList(allowList, tabUrl.hostname);
+    const allowListMatch = matchesRegexList(allowList, tabUrl);
     if (allowListMatch) {
       // Set the happy icon for an allowed host and return
       chrome.browserAction.setIcon({

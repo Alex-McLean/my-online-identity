@@ -4,7 +4,7 @@
 
 import { DEFAULT_THEME, THEMES, ThemeValue } from '../background/settingsOptions';
 import { SETTINGS_THEME_KEY } from '../background/storage';
-import { HARDCODED_BLOCK_LIST, SettingsList, SETTINGS_LISTS } from './hostLists';
+import { SettingsList, SETTINGS_LISTS } from './hostLists';
 
 /**
  * Construct the theme settings DOM elements
@@ -74,12 +74,15 @@ const constructHardcodedBlockList = (): void => {
   const hardcodedBlockListDiv = document.getElementById('settings-list-hardcoded');
   if (!hardcodedBlockListDiv) return;
 
-  HARDCODED_BLOCK_LIST.forEach((block) => {
-    const blockListItem = document.createElement('code');
-    blockListItem.className = 'settings-list-hardcoded-item';
-    blockListItem.innerText = block;
-    hardcodedBlockListDiv.appendChild(blockListItem);
-  });
+  // Create link to the EasyPrivacy list utilised by our extension
+  const easyListDetails = document.createElement('div');
+  const easyDetailsLink = document.createElement('a');
+  easyDetailsLink.innerText = 'The EasyPrivacy list originally designed for Adblock';
+  easyDetailsLink.href = 'https://easylist.to/';
+  easyDetailsLink.target = '_blank';
+  easyDetailsLink.rel = 'noopener';
+  easyListDetails.appendChild(easyDetailsLink);
+  hardcodedBlockListDiv.appendChild(easyListDetails);
 };
 
 /**

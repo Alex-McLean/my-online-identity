@@ -2,7 +2,11 @@
  * This script monitors the web request activity of the user's browser
  */
 
-import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST, HARDCODED_BLOCK_LIST, matchesList } from '../options/hostLists';
+import * as AdBlockJS from 'ad-block-js';
+import { adBlockPlusRuleMatch, getAdBlockClient } from '../options/adBlockLists';
+import { EASY_PRIVACY } from '../options/easyPrivacy';
+import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST } from '../options/hostLists';
+import { matchesRegexList } from '../options/regexLists';
 import {
   WEB_REQUEST_COUNT_KEY,
   WEB_REQUEST_HOSTS_KEY,
@@ -103,16 +107,18 @@ const addWarning = (tabId: number, host: string, warning: WebRequestWarning): vo
 const checkAgainstHostLists = (
   initiatorUrl: URL,
   destinationUrl: URL,
-  details: chrome.webRequest.WebRequestBodyDetails
+  details: chrome.webRequest.WebRequestBodyDetails,
+  adBlockClient: AdBlockJS.Client
 ): void => {
   // Get the users list of blocked hosts
   chrome.storage.local.get(WEB_REQUEST_BLOCK_LIST_KEY, (items) => {
     const blockList: string[] = items[WEB_REQUEST_BLOCK_LIST_KEY] ?? DEFAULT_BLOCK_LIST;
     // Combine the hardcoded list of hosts with the user's list
-    const fullBlockList = [...blockList, ...HARDCODED_BLOCK_LIST];
+    const fullBlockList = [...blockList];
 
     // Check for a match on the block list
-    const blockListMatch = matchesList(fullBlockList, destinationUrl.toString());
+    const blockListMatch =
+      matchesRegexList(fullBlockList, destinationUrl) || adBlockPlusRuleMatch(adBlockClient, destinationUrl);
     if (!blockListMatch) return;
 
     // Block list match found, check user's allow list before adding warning
@@ -120,7 +126,7 @@ const checkAgainstHostLists = (
       const allowList: string[] = items[WEB_REQUEST_ALLOW_LIST_KEY] ?? DEFAULT_ALLOW_LIST;
 
       // Check for a match on the allow list
-      const allowListMatch = matchesList(allowList, initiatorUrl.toString());
+      const allowListMatch = matchesRegexList(allowList, initiatorUrl);
       if (allowListMatch) return;
 
       // Block list match found, no allow list match found, add warning to storage
@@ -168,9 +174,10 @@ const checkForInsecurePost = (
 const checkForWarnings = (
   initiatorUrl: URL,
   destinationUrl: URL,
-  details: chrome.webRequest.WebRequestBodyDetails
+  details: chrome.webRequest.WebRequestBodyDetails,
+  adBlockClient: AdBlockJS.Client
 ): void => {
-  checkAgainstHostLists(initiatorUrl, destinationUrl, details);
+  checkAgainstHostLists(initiatorUrl, destinationUrl, details, adBlockClient);
   checkForInsecurePost(initiatorUrl, destinationUrl, details);
 };
 
@@ -178,6 +185,9 @@ const checkForWarnings = (
  * General entrypoint to this script
  */
 export const monitorWebRequest = (): void => {
+  // Instantiate Ad Block list processor
+  const adBlockClient = getAdBlockClient(EASY_PRIVACY);
+
   // Add listener that captures all network requests before they are sent over the wire, for all URLs
   chrome.webRequest.onBeforeRequest.addListener(
     (details) => {
@@ -187,7 +197,7 @@ export const monitorWebRequest = (): void => {
       countRequest();
       countHostRequest(url);
       if (initiatorUrl) countInitiatorRequest(initiatorUrl, url);
-      if (initiatorUrl) checkForWarnings(initiatorUrl, url, details);
+      if (initiatorUrl) checkForWarnings(initiatorUrl, url, details, adBlockClient);
     },
     { urls: ['<all_urls>'] }
   );

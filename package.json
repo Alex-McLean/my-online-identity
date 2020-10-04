@@ -7,7 +7,9 @@
     "watch": "webpack --config webpack/webpack.dev.js --watch",
     "lint": "eslint --config .eslintrc --cache --color --ext .js,.jsx,.ts,.tsx ./src"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ad-block-js": "0.0.2"
+  },
   "devDependencies": {
     "@types/chrome": "0.0.100",
     "@typescript-eslint/eslint-plugin": "^2.10.0",

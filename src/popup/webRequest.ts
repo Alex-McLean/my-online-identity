@@ -3,12 +3,13 @@
  */
 
 import { WEB_REQUEST_ALLOW_LIST_KEY, WEB_REQUEST_WARNINGS_KEY, WebRequestWarnings } from '../background/storage';
-import { DEFAULT_ALLOW_LIST, matchesList } from '../options/hostLists';
+import { DEFAULT_ALLOW_LIST } from '../options/hostLists';
+import { matchesRegexList } from '../options/regexLists';
 
 /**
  * Update the trust header at the top of the popup based on the current tab
  */
-const updateTrustHeader = (tabId: number, initiator: string): void => {
+const updateTrustHeader = (tabId: number, initiator: URL): void => {
   // Get teh container DOM element
   const trustHeader = document.getElementById('trustHeader');
   if (!trustHeader) return;
@@ -18,7 +19,7 @@ const updateTrustHeader = (tabId: number, initiator: string): void => {
     const allowList: string[] = items[WEB_REQUEST_ALLOW_LIST_KEY] ?? DEFAULT_ALLOW_LIST;
 
     // Check for a match in allowed hosts
-    const allowListMatch = matchesList(allowList, initiator);
+    const allowListMatch = matchesRegexList(allowList, initiator);
 
     // Update the header to denote allowed host if true
     if (allowListMatch) {
@@ -33,7 +34,7 @@ const updateTrustHeader = (tabId: number, initiator: string): void => {
     chrome.storage.local.get(WEB_REQUEST_WARNINGS_KEY, (items) => {
       const existingWebRequestWarnings: WebRequestWarnings = items[WEB_REQUEST_WARNINGS_KEY] ?? {};
       const existingWebRequestTabWarnings = existingWebRequestWarnings[tabId] ?? {};
-      const existingWebRequestHostWarnings = existingWebRequestTabWarnings[initiator] ?? [];
+      const existingWebRequestHostWarnings = existingWebRequestTabWarnings[initiator.hostname] ?? [];
 
       // Update the header style based on existence of any warnings
       trustHeader.className = existingWebRequestHostWarnings.length ? 'red' : 'grey';
@@ -60,6 +61,6 @@ export const constructWebRequest = (): void => {
     const url = new URL(activeTab.url);
 
     // Updated the trust header
-    updateTrustHeader(activeTab.id, url.hostname);
+    updateTrustHeader(activeTab.id, url);
   });
 };
