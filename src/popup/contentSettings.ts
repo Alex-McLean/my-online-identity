@@ -42,7 +42,7 @@ const createContentSettingParagraph = (
     contentSettingDescription.appendChild(contentSettingDescriptionBody);
 
     // Create a read more element that hides and shows further information about the setting
-    const contentSettingReadMore = document.createElement('svg');
+    const contentSettingReadMore = document.createElement('div');
     contentSettingReadMore.insertAdjacentHTML(
       'beforeend',
       `<svg

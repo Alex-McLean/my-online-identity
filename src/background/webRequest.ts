@@ -1,8 +1,8 @@
-import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST, HARDCODED_BLOCK_LIST, matchesList } from '../options/hostLists';
 /**
  * This script monitors the web request activity of the user's browser
  */
 
+import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST, HARDCODED_BLOCK_LIST, matchesList } from '../options/hostLists';
 import {
   WEB_REQUEST_COUNT_KEY,
   WEB_REQUEST_HOSTS_KEY,
