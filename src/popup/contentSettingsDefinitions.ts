@@ -28,7 +28,7 @@ export const CONTENT_SETTING_DEFINITIONS: ContentSettingParagraphArgs[] = [
     contentSetting: chrome.contentSettings.camera,
     label: 'Camera',
     options: ['allow', 'block', 'ask'],
-    description: '',
+    description: 'Camera gives you the user the ability to decide whether a website should have access to your device\'s camera.',
   },
   {
     contentSetting: chrome.contentSettings.microphone,
