@@ -3,7 +3,6 @@
  * for the extension's utilisation of the chrome.storage.* APIs
  */
 
-import { DEFAULT_ALLOW_LIST, DEFAULT_BLOCK_LIST } from '../options/hostLists';
 import { DEFAULT_THEME } from './settingsOptions';
 
 // Export web request storage keys to ensure consistency
@@ -47,6 +46,34 @@ export interface WebRequestWarnings {
     [host: string]: WebRequestWarning[];
   };
 }
+
+/**
+ * Provide functionality pertaining to the host lists available to the user on the options page
+ */
+
+/** Host list constants */
+export const DEFAULT_ALLOW_LIST = [];
+export const DEFAULT_BLOCK_LIST = [];
+
+/** Host list constants for the setting interface */
+export interface SettingsList {
+  storageKey: string;
+  textareaId: string;
+  defaultList: string[];
+}
+
+export const SETTINGS_LISTS: SettingsList[] = [
+  {
+    storageKey: WEB_REQUEST_BLOCK_LIST_KEY,
+    textareaId: 'settings-block',
+    defaultList: DEFAULT_BLOCK_LIST,
+  },
+  {
+    storageKey: WEB_REQUEST_ALLOW_LIST_KEY,
+    textareaId: 'settings-allow',
+    defaultList: DEFAULT_ALLOW_LIST,
+  },
+];
 
 /**
  * Initialises storage key-value pairs in the chrome instance local storage

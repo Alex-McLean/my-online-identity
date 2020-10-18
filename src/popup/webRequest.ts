@@ -23,7 +23,7 @@ const updateTrustHeader = (tabId: number, initiator: URL): void => {
 
     // Update the header to denote allowed host if true
     if (allowListMatch) {
-      trustHeader.className = 'grey';
+      trustHeader.className = 'green';
       const trustHeaderH1 = document.createElement('h1');
       trustHeaderH1.innerText = 'This site is on your list of allowed hosts';
       trustHeader.appendChild(trustHeaderH1);
