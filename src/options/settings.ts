@@ -97,6 +97,19 @@ const saveList = (settingsList: SettingsList): void => {
   chrome.storage.local.set({ [settingsList.storageKey]: textarea.value.split('\n') });
 };
 
+const saveStatus = (text: string, colorClass: string): void => {
+  const successHeader = document.getElementById('success-header') as HTMLDivElement | null;
+  if (!successHeader) return;
+
+  successHeader.className = colorClass;
+  successHeader.innerText = text;
+  successHeader.classList.add('visible');
+
+  setTimeout((): void => {
+    successHeader.classList.remove('visible');
+  }, 3000);
+};
+
 /**
  * Creates the required functionality on the save button for the lists
  */
@@ -107,7 +120,7 @@ const constructSaveButton = (): void => {
   // Save each list onclick
   saveButton.onclick = (): void => {
     SETTINGS_LISTS.forEach((list) => void saveList(list));
-    alert('Settings Saved');
+    saveStatus('Saved', 'green');
   };
 };
 
