@@ -105,7 +105,9 @@ h1 {
   border: none;
   background-color: #66d3a2;
 }
-.content-setting-select.ask {
+.content-setting-select.ask,
+.content-setting-select.session_only,
+.content-setting-select.detect_important_content {
   /* border: 2px solid #bf8c00; */
   border: none;
   background-color: #f6bc42;
