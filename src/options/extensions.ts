@@ -147,8 +147,37 @@ const createExtensionListItem = (extension: chrome.management.ExtensionInfo): HT
   // Add the extension's permission count to the container
   const extensionListItemPermissionInfo = document.createElement('div');
   extensionListItemPermissionInfo.className = 'extension-list-item-permission-info';
-  extensionListItemPermissionInfo.innerText = `Uses ${extension.permissions.length} permissions`;
+  extensionListItemPermissionInfo.innerText = `Uses ${extension.permissions.length} permission${
+    extension.permissions.length === 1 ? '' : 's'
+  }`;
   extensionListItemDiv.appendChild(extensionListItemPermissionInfo);
+
+  if (extension.permissions.length > 0) {
+    const extensionListItemPermissionExpander = document.createElement('div');
+    extensionListItemPermissionExpander.className = 'extension-list-item-permission-expander';
+    extensionListItemPermissionExpander.innerText = '+';
+    extensionListItemPermissionInfo.appendChild(extensionListItemPermissionExpander);
+
+    const extensionListItemPermissionList = document.createElement('div');
+    extensionListItemPermissionList.className = 'extension-list-item-permission-list';
+    extensionListItemPermissionList.classList.add('hidden');
+    extensionListItemPermissionList.innerText = extension.permissions
+      .map((permission) => PERMISSION_DETAILS[permission]?.title ?? permission)
+      .join('\n');
+    extensionListItemDiv.appendChild(extensionListItemPermissionList);
+
+    extensionListItemPermissionExpander.onclick = (event: MouseEvent): void => {
+      event.preventDefault();
+      event.stopPropagation();
+      extensionListItemPermissionList.classList.toggle('hidden');
+      if (extensionListItemPermissionList.classList.contains('hidden')) {
+        extensionListItemPermissionExpander.innerText = '+';
+      } else {
+        extensionListItemPermissionExpander.innerText = '-';
+      }
+    };
+  }
+
   return extensionListItemDiv;
 };
 
