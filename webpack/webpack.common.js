@@ -10,6 +10,7 @@ module.exports = {
     popup: path.join(__dirname, srcDir + '/popup/popup.ts'),
     options: path.join(__dirname, srcDir + '/options/options.ts'),
     background: path.join(__dirname, srcDir + '/background/background.ts'),
+    warnings: path.join(__dirname, srcDir + '/warnings/warnings.ts'),
     tabScript: path.join(__dirname, srcDir + '/background/tabScript.ts'),
   },
   output: {

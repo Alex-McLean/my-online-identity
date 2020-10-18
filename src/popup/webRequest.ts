@@ -41,9 +41,14 @@ const updateTrustHeader = (tabId: number, initiator: URL): void => {
 
       // Set the header content based on existence of any warnings
       const trustHeaderH1 = document.createElement('h1');
-      trustHeaderH1.innerText = existingWebRequestHostWarnings.length
+      trustHeaderH1.innerHTML = existingWebRequestHostWarnings.length
         ? 'This site may be breaking your trust'
         : 'This site is behaving normally';
+      if (existingWebRequestHostWarnings.length) {
+        trustHeaderH1.onclick = (): void => {
+          chrome.tabs.create({ url: `warnings.html?tab=${tabId}&hostname=${initiator.hostname}` });
+        };
+      }
       trustHeader.appendChild(trustHeaderH1);
     });
   });

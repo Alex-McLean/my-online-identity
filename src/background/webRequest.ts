@@ -107,7 +107,7 @@ const addWarning = (tabId: number, host: string, warning: WebRequestWarning): vo
 const checkAgainstHostLists = (
   initiatorUrl: URL,
   destinationUrl: URL,
-  details: chrome.webRequest.WebRequestBodyDetails,
+  details: chrome.webRequest.WebResponseCacheDetails,
   adBlockClient: AdBlockJS.Client
 ): void => {
   // Get the users list of blocked hosts
@@ -149,7 +149,7 @@ const ALLOWED_INSECURE_METHODS = ['GET', 'HEAD'];
 const checkForInsecurePost = (
   initiatorUrl: URL,
   destinationUrl: URL,
-  details: chrome.webRequest.WebRequestBodyDetails
+  details: chrome.webRequest.WebResponseCacheDetails
 ): void => {
   const initiatorSecure = initiatorUrl.protocol === 'https:';
   const destinationSecure = destinationUrl.protocol === 'https:';
@@ -174,7 +174,7 @@ const checkForInsecurePost = (
 const checkForWarnings = (
   initiatorUrl: URL,
   destinationUrl: URL,
-  details: chrome.webRequest.WebRequestBodyDetails,
+  details: chrome.webRequest.WebResponseCacheDetails,
   adBlockClient: AdBlockJS.Client
 ): void => {
   checkAgainstHostLists(initiatorUrl, destinationUrl, details, adBlockClient);
@@ -189,8 +189,12 @@ export const monitorWebRequest = (): void => {
   const adBlockClient = getAdBlockClient(EASY_PRIVACY);
 
   // Add listener that captures all network requests before they are sent over the wire, for all URLs
-  chrome.webRequest.onBeforeRequest.addListener(
+  chrome.webRequest.onCompleted.addListener(
     (details) => {
+      if (details.statusCode >= 400 && details.statusCode <= 599) {
+        // client (4xx) or server (5xx) error
+        return;
+      }
       const url = new URL(details.url);
       const initiatorUrl = details.initiator ? new URL(details.initiator) : undefined;
 
